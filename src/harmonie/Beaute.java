@@ -4,8 +4,7 @@ public class Beaute {
 	/*
 	 * Cette classe calculera une plus belle
 	 * harmonisation du chant passe en parametre
-	 * suivant le crite crit
-	 * 
+	 * suivant le critère	 * 
 	 */
 	
 	private	 int	crit;
