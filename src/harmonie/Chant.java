@@ -41,20 +41,22 @@ public class Chant {
     private static final int	CONST = 7;
     private static final int	TAB_SIZE = 4;
     private static final String	NOTE_FORMAT
-	= "^((do|re|ré|mi|fa|sol|la|si|)\\d|-):\\d$";    
+	= "^((do|re|ré|mi|fa|sol|la|si|)[1-4]|-):[1-9]$";    
     
     /*
-     * Double tableau contenant la totalite des notes
+     * Double tableau contenant la totalite des notes et titre
      */
     
     private int[][]	chant_tab;
+    private String	titre;
 
     /*
      * Constructeur
      */
     
     public Chant(String file_name) {
-	chant_tab = new int[TAB_SIZE][];
+	this.chant_tab = new int[TAB_SIZE][];
+	this.titre = new String();
 	try {
 	    setTab(chantFileToStringTab(file_name));
 	}
@@ -82,6 +84,9 @@ public class Chant {
     }
     public int[]	getBasse()    {
 	return chant_tab[BASSE];
+    }
+    public String	getTitre()	{
+	return titre;
     }
 
     /*
@@ -139,6 +144,8 @@ public class Chant {
 	buff = new String();
 	file_in = new Scanner
 	    (new BufferedReader(new FileReader(file_name)));
+	if (file_in.hasNextLine())
+	    this.titre = file_in.nextLine();
 	while (file_in.hasNext())
 	    buff += file_in.next() + " ";
 	file_in.close();
