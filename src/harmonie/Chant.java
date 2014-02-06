@@ -29,61 +29,50 @@ public class Chant {
     public static final int	PAUSE = -1;
     public static final int	REPEAT = -2;
 
-    
-	/*
-	 * Constantes private
-	 */
-	
-    private static final int	SOPRANO = 0;
-    private static final int	ALTO = 1;
-    private static final int	TENOR = 2;
-    private static final int	BASSE = 3;
-    private static final int	CONST = 7;
-    private static final int	TAB_SIZE = 4;
-    private static final String	NOTE_FORMAT
-	= "^((do|re|ré|mi|fa|sol|la|si|)[1-4]|-):[1-9]$";    
-    
     /*
-     * Double tableau contenant la totalite des notes et titre
+     * Notes
      */
     
-    private int[][]	chant_tab;
+    public static final int	DO = 0;
+    public static final int	RE = 1;
+    public static final int	MI = 2;
+    public static final int	FA = 3;
+    public static final int	SOL = 4;
+    public static final int	LA = 5;
+    public static final int	SI = 6;
+
+    
+    /*
+     * Constantes private
+     */
+	
+    private static final int	CONST = 7;
+    private static final String	NOTE_FORMAT
+	= "^((do|re|ré|mi|fa|sol|la|si|)[1-4]|-):[1-9]$";    
+
+    /*
+     * Tableau de notes soprano et titre du morceau
+     */
+    
+    private int[]	soprano;
     private String	titre;
 
     /*
      * Constructeur
      */
     
-    public Chant(String file_name) {
-	this.chant_tab = new int[TAB_SIZE][];
+    public Chant(String file_name)
+	throws IOException, EmptyFileException, ChantFormatException	{
 	this.titre = new String();
-	try {
-	    setTab(chantFileToStringTab(file_name));
-	}
-	catch (IOException | ChantFormatException
-	       | EmptyFileException e) {
-	    System.out.println(e);
-	}
+	soprano = initSoprano(chantFileToStringTab(file_name));
     }
     
     /*
-     * Getters public. Pour l'instant getSoprano est le seul a fonctionner
+     * Getters public. 
      */
     
-    public int[][]	getTab()    {
-	return chant_tab;
-    }
     public int[]	getSoprano()    {
-	return chant_tab[SOPRANO];
-    }
-    public int[]	getAlto()    {
-	return chant_tab[ALTO];
-    }
-    public int[]	getTenor()    {
-	return chant_tab[TENOR];
-    }
-    public int[]	getBasse()    {
-	return chant_tab[BASSE];
+	return soprano;
     }
     public String	getTitre()	{
 	return titre;
@@ -94,34 +83,26 @@ public class Chant {
      * et initialiser les tableaux.
      */
     
-    private void	setTab(String[] notes)	
-    throws ChantFormatException	{
-	checkChantFormat(notes);
-	setSoprano(initSoprano(notes));
-	/*
-	 * setAlto();
-	 * setTenor();
-	 * setBasse();
-	 */
-    }
-    private int[]	initSoprano(String[] notes)	{
-	int	soprano[];
+    private int[]	initSoprano(String[] notes)	
+	throws ChantFormatException	{
 	HashMap<String, Integer>	map;
+	int	soprano[];
 	String	key;
 	int	i;
 	int	l;
 
-	soprano = new int[getSongLength(notes)];
+	checkChantFormat(notes);
 	map = new HashMap<String, Integer>();
+	soprano = new int[getSongLength(notes)];
 	key = new String();
-	map.put("do", 0);
-	map.put("ré", 1);
-	map.put("re", 1);
-	map.put("mi", 2);
-	map.put("fa", 3);
-	map.put("sol", 4);
-	map.put("la", 5);
-	map.put("si", 6);
+	map.put("do", DO);
+	map.put("ré", RE);
+	map.put("re", RE);
+	map.put("mi", MI);
+	map.put("fa", FA);
+	map.put("sol", SOL);
+	map.put("la", LA);
+	map.put("si", SI);
 	map.put("-", PAUSE);
 	i = 0;
 	for (String note : notes)
@@ -146,30 +127,14 @@ public class Chant {
 	    (new BufferedReader(new FileReader(file_name)));
 	if (file_in.hasNextLine())
 	    this.titre = file_in.nextLine();
-	while (file_in.hasNext())
-	    buff += file_in.next() + " ";
+	while (file_in.hasNextLine())
+	    buff += file_in.nextLine() + " ";
 	file_in.close();
 	if (buff.isEmpty())
 	    throw new EmptyFileException();
 	return buff.split(" ");
     }
     
-    /*
-     * Setters private
-     */
-    
-    private void	setSoprano(int[] soprano)	{
-	chant_tab[SOPRANO] = soprano;
-    }
-    private void	setAlto(int[] alto)	{
-	chant_tab[ALTO] = alto;
-    }
-    private void	setTenor(int[] tenor)	{
-	chant_tab[TENOR] = tenor;
-    }
-    private void	setBasse(int[] basse)	{
-	chant_tab[BASSE] = basse;
-    }
     
     /*
      * Diverses methode pour recuperer
