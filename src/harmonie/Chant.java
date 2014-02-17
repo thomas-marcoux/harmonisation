@@ -42,7 +42,7 @@ public class Chant {
     /**
      * Constantes private
      */	
-    private static final int	CONST = 7;
+    private static final int	CONST_OCTAVE = 7;
     private static final String	NOTE_FORMAT
 	= "^((do|re|ré|mi|fa|sol|la|si|)[1-4]|-):[1-9]$";    
 
@@ -73,11 +73,44 @@ public class Chant {
 
     /**
      * Getter du titre du Chant.
-     * @return	Une String.
+     * @return	Une String
      */
     public String	getTitre() {
 	return titre;
     }
+
+    /**
+     * Diverses methodes public pour recuperer des infos sur les
+     * notes au format int[].
+     */
+
+    /**
+     * Renvoie true si l'int de format Chant est une note.
+     * @param  note	L'int formate
+     * @return		Un boolean
+     */
+    public static boolean	isNote(int note) {
+	return note != REPEAT && note != PAUSE;
+    }
+
+    /**
+     * Renvoie l'octave d'une note de format Chant.
+     * @param  note	La note
+     * @return		Son octave
+     */
+    public static int	getOctave(int note) {
+	return note / CONST_OCTAVE;
+    }
+
+    /**
+     * Renvoie la valeur d'une note a l'octave 1.
+     * @param  note	La note
+     * @return		Sa valeur a l'octave 1
+     */
+    public static int	getNoteBase(int note) {
+	return note % CONST_OCTAVE;
+    }
+
 
     /**
      * Methodes private pour lire les fichiers
@@ -105,7 +138,7 @@ public class Chant {
 	for (String note : notes) {
 	    key = getKey(note);
 	    soprano[i] = map.get(key)
-		+ CONST * (getNoteOctave(note) - 1);
+		+ CONST_OCTAVE * (getNoteOctave(note) - 1);
 	    l = getNoteLength(note);
 	    for (int j = 1; j < l; ++j)
 		soprano[++i] = REPEAT;
@@ -131,8 +164,8 @@ public class Chant {
     }
         
     /**
-     * Diverses methode pour recuperer
-     * des informations sur les notes
+     * Diverses methode private pour recuperer
+     * des informations sur les notes a partir du fichier chant
      */
     private String	getKey(String note) {
 	return (note.split(":"))[0].replaceAll("\\d","");
