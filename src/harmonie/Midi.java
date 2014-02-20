@@ -10,11 +10,13 @@ public abstract class Midi {
      * Cette classe contiens les outils pour ecrire un fichier midi.
      */
 
+    private static final int FILE_TYPE = 1;
+
     private static final int RESOLUTION = 1;
     private static final int TRACK_NUM = 4;
     private static final int VELOCITY = 64;
 
-    private static final int INSTRU_SOPRANO = 73; //Flute
+    private static final int INSTRU_SOPRANO = 74; //Flute
     private static final int CANAL_SOPRANO = 1;
 
     private static final int INSTRU_ALTO = 11; //Vibraphone
@@ -29,19 +31,24 @@ public abstract class Midi {
     private static final int CONST1 = 36;
     private static final int CONST2 = 12;
     
-    static public void write(int[] soprano, String file_out) 
+    static public void write(Chant c) 
+	throws IOException, InvalidMidiDataException {
+	write(c, c.getTitre() + ".midi");
+    }
+
+    static public void write(Chant c, String file_out) 
 	throws IOException, InvalidMidiDataException {
 	File	out = new File(file_out);
 	Sequence	seq = new Sequence
 	    (Sequence.PPQ, RESOLUTION, TRACK_NUM);
 
-	writeTrack(seq, soprano, INSTRU_SOPRANO, CANAL_SOPRANO);
+	writeTrack(seq, c.getSoprano(), INSTRU_SOPRANO, CANAL_SOPRANO);
 	/*
-	writeTrack(seq, alto, INSTRU_ALTO, CANAL_ALTO);
-	writeTrack(seq, tenor, INSTRU_TENOR, CANAL_TENOR);
-	writeTrack(seq, basse, INSTRU_BASSE, CANAL_BASSE);
-	*/
-	MidiSystem.write(seq, 1, out);
+	 * writeTrack(seq, c.getAlto(), INSTRU_ALTO, CANAL_ALTO);
+	 * writeTrack(seq, c.getTenor(), INSTRU_TENOR, CANAL_TENOR);
+	 * writeTrack(seq, c.getBasse(), INSTRU_BASSE, CANAL_BASSE);
+	 */
+	MidiSystem.write(seq, FILE_TYPE, out);
     }
 
     static private void	writeTrack
@@ -55,7 +62,7 @@ public abstract class Midi {
 	    if (Chant.isNote(t[i])) {
 		note = noteToMidi(t[i]);
 		track.add(noteOn(note, i++, canal));
-		for (; t[i] == Chant.REPEAT; ++i);
+		for (; i < t.length && t[i] == Chant.REPEAT; ++i);
 		track.add(noteOff(note, i, canal));
 	    }
 	    else

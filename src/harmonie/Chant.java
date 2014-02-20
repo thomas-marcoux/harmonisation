@@ -42,6 +42,10 @@ public class Chant {
     /**
      * Constantes private
      */	
+    private static final int	SOPRANO = 0;
+    private static final int	ALTO = 1;
+    private static final int	TENOR = 2;
+    private static final int	BASSE = 3;
     private static final int	CONST_OCTAVE = 7;
     private static final String	NOTE_FORMAT
 	= "^((do|re|ré|mi|fa|sol|la|si|)[1-4]|-):[1-9]$";    
@@ -49,6 +53,7 @@ public class Chant {
     /**
      * Tableau de notes soprano et titre du morceau
      */
+    private int[][]	tracks;
     private int[]	soprano;
     private String	titre;
 
@@ -61,6 +66,11 @@ public class Chant {
 	throws IOException, EmptyFileException, ChantFormatException {
 	this.titre = new String();
 	soprano = initSoprano(chantFileToStringTab(fileName));
+
+	/*
+	 * Initialisation de tracks par l'appel des methodes
+	 * d'harmonisation et de beaute
+	 */
     }
     
     /**
@@ -69,6 +79,31 @@ public class Chant {
      */
     public int[]	getSoprano() {
 	return soprano;
+	//return tracks[SOPRANO];
+    }
+
+    /**
+     * Getter du tableau de notes alto du Chant.
+     * @return	Un tableau d'int
+     */
+    public int[]	getAlto() {
+	return tracks[ALTO];
+    }
+
+    /**
+     * Getter du tableau de notes tenor du Chant.
+     * @return	Un tableau d'int
+     */
+    public int[]	getTenor() {
+	return tracks[TENOR];
+    }
+
+    /**
+     * Getter du tableau de notes basse du Chant.
+     * @return	Un tableau d'int
+     */
+    public int[]	getBasse() {
+	return tracks[BASSE];
     }
 
     /**
