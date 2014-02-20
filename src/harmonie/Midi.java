@@ -10,6 +10,8 @@ public abstract class Midi {
      * Cette classe contiens les outils pour ecrire un fichier midi.
      */
 
+    private static final String	MIDI_FILE_SUFFIX = ".mid";
+
     private static final int FILE_TYPE = 1;
 
     private static final int RESOLUTION = 1;
@@ -33,7 +35,7 @@ public abstract class Midi {
     
     static public void write(Chant c) 
 	throws IOException, InvalidMidiDataException {
-	write(c, c.getTitre() + ".midi");
+	write(c, c.getTitre() + MIDI_FILE_SUFFIX);
     }
 
     static public void write(Chant c, String file_out) 
