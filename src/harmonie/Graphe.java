@@ -92,31 +92,29 @@ public class Graphe {
 	public static void getPath(Graphe source, ArrayList<Graphe> chemin,
 			Graphe[][] listeAccords, ArrayList<ArrayList<Graphe>> listeHarmonies) {
 
-		Iterator<Graphe> it = source.getPere().iterator();
-		while (it.hasNext()) {
-			Graphe suiv = it.next();
-		
-				chemin.add(suiv);
-
-				getPath(suiv, chemin, listeAccords, listeHarmonies);
-			
+		chemin.add(source);
+		if (source.getPere().isEmpty()) {
 			listeHarmonies.add(chemin);
-		}
-		/*
-		 * for (int i = 0; i < listeAccords[compt - 1].length; i++) {
-		 * 
-		 * if (suiv.getValeur() == listeAccords[compt - 1][i].getValeur()) {
-		 * 
-		 * if (chemin.size() != 15) { chemin.add(listeAccords[compt - 1][i]);
-		 * 
-		 * getPath(listeAccords[compt - 1][i], chemin, compt - 1, listeAccords,
-		 * listeHarmonies); } else {
-		 * 
-		 * listeHarmonies.add(chemin); }
-		 * 
-		 * } }
-		 */
+		} else {
+			Iterator<Graphe> it = source.getPere().iterator();
 
+			while (it.hasNext()) {
+				Graphe suiv = it.next();
+				ArrayList<Graphe> chemin2 = copyPath(chemin);
+
+				getPath(suiv, chemin2, listeAccords, listeHarmonies);
+			}
+		}
+	}
+
+	public static ArrayList<Graphe> copyPath(ArrayList<Graphe> path) {
+		ArrayList<Graphe> newPath = new ArrayList<Graphe>();
+		Iterator<Graphe> it = path.iterator();
+		while (it.hasNext()) {
+			Graphe current = it.next();
+			newPath.add(current);
+		}
+		return newPath;
 	}
 
 	/**
@@ -143,11 +141,11 @@ public class Graphe {
 
 		ArrayList<Graphe> chemin = new ArrayList<Graphe>();
 
-		// for (int k = 0; k < listeAccords_Graphe[14].length; k++) {
-		System.out.println("\n\n"+ listeAccords_Graphe[14][0].getValeur());
-		getPath(listeAccords_Graphe[14][0], chemin, listeAccords_Graphe,
-				listeHarmonies);
-		// }
+		for (int k = 0; k < listeAccords_Graphe[14].length; k++) {
+			chemin.clear();
+			getPath(listeAccords_Graphe[14][k], chemin, listeAccords_Graphe,
+					listeHarmonies);
+		}
 	}
 
 	/**

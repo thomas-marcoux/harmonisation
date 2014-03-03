@@ -21,7 +21,7 @@ public abstract class Harmonisations {
 			V = new Graphe(5), VI = new Graphe(6), VII = new Graphe(7),
 			NONE = new Graphe(-1);
 
-	public static ArrayList<ArrayList<Graphe>> listeHarmonies;
+	public static ArrayList<ArrayList<Graphe>> listeHarmonies = new ArrayList<ArrayList<Graphe>>();
 
 	/**
 	 * Foremost Algorithm
@@ -45,13 +45,12 @@ public abstract class Harmonisations {
 		soprano[13] = REPEAT;
 		soprano[14] = REPEAT;
 		soprano[15] = PAUSE;
-
 		// affichage(soprano);
 
 		// Etape 2-3: Création d'un tableau "jeu" contenant tous les jeux de
 		// notes respectant les règles d'harmonisations locales.
 		int[][] jeu = remplissageJeu(soprano);
-		 affichageDouble(jeu);
+		affichageDouble(jeu);
 
 		// Etape 4-5: Création d'un tableau de listes "suivant" contenant chaque
 		// accord suivant
@@ -71,6 +70,10 @@ public abstract class Harmonisations {
 
 		Graphe.parcoursPaths(listeAccords_Graphe, listeHarmonies);
 		//affichagePaths(listeHarmonies);
+
+		//
+		// -> listeHarmonies contients toutes les listes d'harmonisations
+		//
 	}
 
 	/**
@@ -347,17 +350,6 @@ public abstract class Harmonisations {
 			ArrayList<ArrayList<Graphe>> listeHarmonies) {
 		System.out.println("\n Affichage des chemins:\n");
 
-		// Graphe toto = new Graphe(2); Graphe titi = new Graphe (3);
-
-		// ArrayList<Graphe> chemin = new ArrayList<Graphe>();
-		// chemin.add(0,toto);
-		// chemin.add(1,titi); chemin.remove(1);chemin.add(1,toto);
-
-		// ArrayList<Graphe> chemin2 = new ArrayList<Graphe>();
-		// chemin2.add(titi); chemin2.add(toto);
-
-		// listeHarmonies.add(chemin); listeHarmonies.add(chemin2);
-
 		Iterator<ArrayList<Graphe>> it1 = listeHarmonies.iterator();
 		while (it1.hasNext()) {
 			ArrayList<Graphe> li = it1.next();
@@ -367,8 +359,9 @@ public abstract class Harmonisations {
 				Graphe save = it2.next();
 				System.out.print(save.getValeur() + " ");
 			}
-			System.out.println("\n");
-
+			System.out.print("taille :" + li.size() + " \n");
 		}
+		System.out.print("Nombre d'harmonisations :" + listeHarmonies.size()
+				+ " \n");
 	}
 }
