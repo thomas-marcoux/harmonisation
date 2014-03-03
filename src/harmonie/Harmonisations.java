@@ -1,6 +1,7 @@
 package harmonie;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class Harmonisations {
 
@@ -20,7 +21,7 @@ public abstract class Harmonisations {
 			V = new Graphe(5), VI = new Graphe(6), VII = new Graphe(7),
 			NONE = new Graphe(-1);
 
-	public static ArrayList<ArrayList<Integer>> listeHarmonies;
+	public static ArrayList<ArrayList<Graphe>> listeHarmonies;
 
 	/**
 	 * Foremost Algorithm
@@ -50,7 +51,7 @@ public abstract class Harmonisations {
 		// Etape 2-3: Création d'un tableau "jeu" contenant tous les jeux de
 		// notes respectant les règles d'harmonisations locales.
 		int[][] jeu = remplissageJeu(soprano);
-		// affichageDouble(jeu);
+		 affichageDouble(jeu);
 
 		// Etape 4-5: Création d'un tableau de listes "suivant" contenant chaque
 		// accord suivant
@@ -64,10 +65,12 @@ public abstract class Harmonisations {
 		// affichageSuivant(suivant, jeu);
 
 		// Etape 7: Production d'une liste d'harmonisation.
-		listeHarmonies = new ArrayList<ArrayList<Integer>>();
-		Graphe[][] listeAccords_Graphe = Graphe.parcoursGraphe(jeu, suivant,
-				listeHarmonies);
+		listeHarmonies = new ArrayList<ArrayList<Graphe>>();
+		Graphe[][] listeAccords_Graphe = Graphe.parcoursGraphe(jeu, suivant);
 		affichageGraphe(listeAccords_Graphe);
+
+		Graphe.parcoursPaths(listeAccords_Graphe, listeHarmonies);
+		//affichagePaths(listeHarmonies);
 	}
 
 	/**
@@ -327,18 +330,45 @@ public abstract class Harmonisations {
 
 		for (int j = 0; j < listeAccords_Graphe.length; j++) {
 			for (int k = 0; k < listeAccords_Graphe[j].length; k++) {
+				System.out.print(listeAccords_Graphe[j][k].getValeur() + " (-");
 
-				if (listeAccords_Graphe[j][k].getPere() != null) {
-					System.out.print(listeAccords_Graphe[j][k].getValeur()
-							+ " ( "
-							+ listeAccords_Graphe[j][k].getPere().getValeur()
-							+ " ) ");
-				} else {
-					System.out.print(listeAccords_Graphe[j][k].getValeur()
-							+ " ( X ) ");
+				Iterator<Graphe> verif = listeAccords_Graphe[j][k].getPere()
+						.iterator();
+				while (verif.hasNext()) {
+					System.out.print(" " + verif.next().getValeur() + " ");
 				}
+				System.out.print("-) ");
 			}
 			System.out.println(" ");
+		}
+	}
+
+	public static void affichagePaths(
+			ArrayList<ArrayList<Graphe>> listeHarmonies) {
+		System.out.println("\n Affichage des chemins:\n");
+
+		// Graphe toto = new Graphe(2); Graphe titi = new Graphe (3);
+
+		// ArrayList<Graphe> chemin = new ArrayList<Graphe>();
+		// chemin.add(0,toto);
+		// chemin.add(1,titi); chemin.remove(1);chemin.add(1,toto);
+
+		// ArrayList<Graphe> chemin2 = new ArrayList<Graphe>();
+		// chemin2.add(titi); chemin2.add(toto);
+
+		// listeHarmonies.add(chemin); listeHarmonies.add(chemin2);
+
+		Iterator<ArrayList<Graphe>> it1 = listeHarmonies.iterator();
+		while (it1.hasNext()) {
+			ArrayList<Graphe> li = it1.next();
+
+			Iterator<Graphe> it2 = li.iterator();
+			while (it2.hasNext()) {
+				Graphe save = it2.next();
+				System.out.print(save.getValeur() + " ");
+			}
+			System.out.println("\n");
+
 		}
 	}
 }
