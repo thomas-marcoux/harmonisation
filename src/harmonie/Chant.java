@@ -194,7 +194,7 @@ public class Chant {
 	    buff += fileIn.nextLine() + " ";
 	fileIn.close();
 	if (buff.isEmpty())
-	    throw new EmptyFileException();
+	    throw new EmptyFileException(fileName);
 	return buff.split(" ");
     }
         
