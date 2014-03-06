@@ -3,6 +3,7 @@ package harmonie;
 import	java.util.HashMap;
 import	java.util.Scanner;
 import	java.io.BufferedReader;
+import	java.io.File;
 import	java.io.FileReader;
 import	java.io.IOException;
 
@@ -59,20 +60,31 @@ public class Chant {
 
     /**
      * Constructeur de la classe Chant.
-     * @param	fileName	Le nom du fichier .chant
+     * @param	file	Le File .chant
      * @return			Un objet Chant
      */
-    public Chant(String fileName)
+    public Chant(File file)
 	throws IOException, EmptyFileException, ChantFormatException {
 	this.titre = new String();
-	soprano = initSoprano(chantFileToStringTab(fileName));
-
+	soprano = initSoprano(chantFileToStringTab(file));
 	/*
 	 * Initialisation de tracks par l'appel des methodes
 	 * d'harmonisation et de beaute
+	 * Les initialiser dans une methode unique de facon a pouvoir
+	 * les changer sans creer de nouvel objet.
 	 */
     }
-    
+
+    /**
+     * Constructeur de la classe Chant.
+     * @param	fileName	Le nom du fichier .chant
+     * @return			Un objet Chant
+     */    
+    public Chant(String fileName)
+	throws IOException, EmptyFileException, ChantFormatException {
+	this(new File(fileName));
+    }
+
     /**
      * Getter du tableau de notes soprano du Chant.
      * @return	Un tableau d'int
@@ -182,10 +194,10 @@ public class Chant {
 	return soprano;
     }
 
-    private String[]	chantFileToStringTab(String fileName)
+    private String[]	chantFileToStringTab(File file)
 	throws IOException, EmptyFileException {
 	Scanner		fileIn = new Scanner
-	    (new BufferedReader(new FileReader(fileName)));
+	    (new BufferedReader(new FileReader(file)));
 	String		buff= new String();
 	
 	if (fileIn.hasNextLine())
@@ -194,7 +206,7 @@ public class Chant {
 	    buff += fileIn.nextLine() + " ";
 	fileIn.close();
 	if (buff.isEmpty())
-	    throw new EmptyFileException(fileName);
+	    throw new EmptyFileException(file.getName());
 	return buff.split(" ");
     }
         
