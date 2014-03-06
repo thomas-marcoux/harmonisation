@@ -27,7 +27,7 @@ public abstract class Midi {
     private static final int INSTRU_ALTO = 11; //Vibraphone
     private static final int CANAL_ALTO = 2;
 
-    private static final int INSTRU_TENOR = 12; //Mariba
+    private static final int INSTRU_TENOR = 12; //Vibraphone
     private static final int CANAL_TENOR = 3;
 
     private static final int INSTRU_BASSE = 32; //Basse
@@ -35,6 +35,11 @@ public abstract class Midi {
 
     private static final int CONST1 = 36;
     private static final int CONST2 = 12;
+
+    public static void	exec(File parent, Chant c)
+	throws IOException {
+	write(c, new File(parent, c.getTitre() + MIDI_FILE_SUFFIX));
+    }
 
     public static int	exec(Chant c, String[] args, int i) 
 	throws IOException, EmptyFileException, ChantFormatException,
@@ -45,30 +50,18 @@ public abstract class Midi {
 	if (c == null)
 	    write(args[i+1], args[i+2]);
 	else
-	    write(c, args[i+2]);
+	    write(c, new File(args[i+2]));
 	c = null;
 	return i + NB_ARGUMENTS;
     }
     
-    public static void write(String file_in, String file_out) 
+    public static void write(String fileIn, String fileOut) 
 	throws IOException, EmptyFileException, ChantFormatException {
-	write(new Chant(file_in), file_out);
+	write(new Chant(fileIn), new File(fileOut));
     }
 
-    public static void write(String file_in) 
-	throws IOException, EmptyFileException, ChantFormatException {
-	write(new Chant(file_in));
-    }
-    
-    public static void write(Chant c) 
+    public static void write(Chant c, File out) 
 	throws IOException {
-	write(c, c.getTitre() + MIDI_FILE_SUFFIX);
-    }
-
-    public static void write(Chant c, String file_out) 
-	throws IOException {
-	File	out = new File(file_out);
-
 	try {
 	    Sequence	seq = new Sequence
 		(Sequence.PPQ, RESOLUTION, TRACK_NUM);
