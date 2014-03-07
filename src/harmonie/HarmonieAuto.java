@@ -1,8 +1,12 @@
 package harmonie;
 
-import	java.io.IOException;
-
 public class HarmonieAuto {
+
+    private static final String	AUTEUR1 = "William Malbos";
+    private static final String	AUTEUR2 = "Thomas Marcoux";
+    private static final String	AUTEUR3 = "Marine Maziarczyk";
+    
+    public static final String	AUTEURS[] = {AUTEUR1, AUTEUR2, AUTEUR3};
 
     /**
      * @param args
@@ -16,8 +20,7 @@ public class HarmonieAuto {
 	try {
 	    CLI.parse(args);
 	}
-	catch (IOException | OptionsFormatException
-	       | EmptyFileException | ChantFormatException e) {
+	catch (OptionsFormatException e) {
 	    System.out.println(e);
 	    CLI.showHelp();
 	}

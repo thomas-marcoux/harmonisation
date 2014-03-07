@@ -10,9 +10,16 @@ public abstract class Midi {
      * Cette classe contiens les outils pour ecrire un fichier midi.
      */
 
+    /**
+     * Constantes public : le nom de l'option et le nombre d'argument
+     * qu'elle prend en parametre
+     */
     public static final String	OPTION = "-midi";
     public static final int	NB_ARGUMENTS = 2;
 
+    /**
+     * Constantes private
+     */
     private static final String	MIDI_FILE_SUFFIX = ".mid";
 
     private static final int FILE_TYPE = 1;
@@ -36,14 +43,18 @@ public abstract class Midi {
     private static final int CONST1 = 36;
     private static final int CONST2 = 12;
 
-    public static void	exec(File parent, Chant c)
-	throws IOException {
-	write(c, new File(parent, c.getTitre() + MIDI_FILE_SUFFIX));
-    }
-
+    /**
+     * La methode appelee par la classe CLI
+     * @param	c	L'objet chant cree par Beaute. Null si Beaute n'a
+     *			pas ete appelee
+     * @param	args	Les arguments entrees en ligne de commande
+     * @param	i	L'iterateur indiquant la position dans ce
+     *			tableau d'arguments
+     * @return		La valeur a ajoute a l'iterateur pour
+     *			sauter les arguments de l'option
+     */
     public static int	exec(Chant c, String[] args, int i) 
-	throws IOException, EmptyFileException, ChantFormatException,
-	       OptionsFormatException {
+	throws OptionsFormatException {
 	if (args.length < i + NB_ARGUMENTS
 	    || CLI.isOption(args[i+1]) || CLI.isOption(args[i+2]))
 	    throw new OptionsFormatException(OPTION, NB_ARGUMENTS);
@@ -54,14 +65,30 @@ public abstract class Midi {
 	c = null;
 	return i + NB_ARGUMENTS;
     }
+
+    /**
+     * La methode appelee par la classe Dossier
+     * @param	parent	Le dossier qui contiendra les fichiers a ecrire
+     * @param	c	Le chant a ecrire
+     */
+    public static void	exec(File parent, Chant c) {
+	write(c, new File(parent, c.getTitre() + MIDI_FILE_SUFFIX));
+    }
     
-    public static void write(String fileIn, String fileOut) 
-	throws IOException, EmptyFileException, ChantFormatException {
-	write(new Chant(fileIn), new File(fileOut));
+    /**
+     * Les methodes d'ecriture de fichiers Midi
+     */
+    private static void write(String fileIn, String fileOut)  {
+	try {
+	    write(new Chant(fileIn), new File(fileOut));
+	}
+	catch (EmptyFileException | ChantFormatException
+	       | IOException e) {
+	    System.out.println(e);
+	}
     }
 
-    public static void write(Chant c, File out) 
-	throws IOException {
+    private static void write(Chant c, File out) {
 	try {
 	    Sequence	seq = new Sequence
 		(Sequence.PPQ, RESOLUTION, TRACK_NUM);
@@ -74,11 +101,14 @@ public abstract class Midi {
 	    */
 	    MidiSystem.write(seq, FILE_TYPE, out);
 	}
-	catch (InvalidMidiDataException e) {
+	catch (IOException | InvalidMidiDataException e) {
 	    System.out.println(e);
 	}
     }
 
+    /**
+     * Ecriture d'un track unique sur une sequence
+     */
     private static void	writeTrack(Sequence seq,
 				   int[] t, int instru, int canal) 
 	throws InvalidMidiDataException {
@@ -98,6 +128,9 @@ public abstract class Midi {
 	}
     }
 
+    /**
+     * Methodes gerant les evenements du track
+     */
     private static MidiEvent noteOn(int nKey, long lTick, int canal)
 	throws InvalidMidiDataException {
 	return createEvent
