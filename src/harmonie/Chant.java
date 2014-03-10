@@ -163,7 +163,7 @@ public class Chant {
      * Methodes private pour lire les fichiers
      * et initialiser les tableaux.
      */
-    private int[]	initSoprano(String[] notes)	
+    private static int[]	initSoprano(String[] notes)	
 	throws ChantFormatException {
 	HashMap<String, Integer>	map
 	    = new HashMap<String, Integer>();
@@ -214,22 +214,22 @@ public class Chant {
      * Diverses methode private pour recuperer
      * des informations sur les notes a partir du fichier chant
      */
-    private String	getKey(String note) {
+    private static String	getKey(String note) {
 	return (note.split(":"))[0].replaceAll("\\d","");
     }
 
-    private int	getNoteOctave(String note) {
+    private static int	getNoteOctave(String note) {
 	String	buff = note.split(":")[0];
 	
 	return (buff.equals("-"))
 	    ? 1 : buff.charAt(buff.length() - 1) - 48;
     }
 
-    private int	getNoteLength(String note) {
+    private static int	getNoteLength(String note) {
 	return Integer.parseInt((note.split(":"))[1]);
     }
 
-    private int	getSongLength(String[] notes) {
+    private static int	getSongLength(String[] notes) {
 	int	r = 0;
 	
 	for (String s : notes)
@@ -240,7 +240,7 @@ public class Chant {
     /**
      * Controle du format
      */
-    private void	checkChantFormat(String[] notes)
+    private static void	checkChantFormat(String[] notes)
 	throws ChantFormatException {
 	for (String s : notes)
 	    if (!s.matches(NOTE_FORMAT))
