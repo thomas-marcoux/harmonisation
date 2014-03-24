@@ -1,7 +1,9 @@
 package harmonie;
 
-import	java.io.IOException;
+import	java.io.BufferedWriter;
+import	java.io.FileWriter;
 import	java.io.File;
+import	java.io.IOException;
 
 public class Dossiers {
     /**
@@ -25,17 +27,17 @@ public class Dossiers {
      * @return		La valeur a ajoute a l'iterateur pour
      *			sauter les arguments de l'option
      */
-    public static int	exec(String[] args, int i)
+    public static void	exec(String[] args)
 	throws OptionsFormatException {
-	Chant	c;
-	File	dirIn;
-	File	dirOut;
+	Chant		c;
+	File		dirIn;
+	File		dirOut;
 
-	if (args.length < i + NB_ARGUMENTS
-	    || CLI.isOption(args[i+1]) || CLI.isOption(args[i+2]))
+	if (args.length - 1 < NB_ARGUMENTS
+	    || CLI.isOption(args[1]) || CLI.isOption(args[2]))
 	    throw new OptionsFormatException(OPTION, NB_ARGUMENTS);
-	dirIn = new File(args[i+1]);
-	dirOut = new File(args[i+2]);
+	dirIn = new File(args[1]);
+	dirOut = new File(args[2]);
 	try {
 	    controlDir(dirIn, dirOut);
 	    writeFiles(dirIn, dirOut);
@@ -43,17 +45,19 @@ public class Dossiers {
 	catch (IOException e) {
 	    System.out.println(e);
 	}
-	return i + NB_ARGUMENTS;
     }
 
     /**
-     * Methode controlant la validite des dossiers et
-     * parcourant les fichiers contenus dans le dossier dirIn
+     * Methode parcourant les fichiers contenus dans le dossier dirIn
      * pour ecrire les resultats demandes dans dirOut
      */
-    private static void	writeFiles(File dirIn, File dirOut) {
-	String	html = new String();
-
+    private static void	writeFiles(File dirIn, File dirOut) 
+	throws IOException {
+	BufferedWriter	out = new BufferedWriter
+	    (new FileWriter(new File(dirOut, HTML.FILE_NAME)));
+	
+	out.write(HTML.openHeaders());
+	out.write(HTML.tabRow(HTML.headerRow()));
 	for (File child : dirIn.listFiles()) {
 	    if (child.isFile()) {
 		/*
@@ -62,16 +66,24 @@ public class Dossiers {
 		 * un nouveau a chaque tour de boucle
 		 * et catch EmptyFileException et ChantFormatException
 		 */
+		out.write(HTML.openRow());
 		try {
-		    Midi.exec(dirOut, new Chant(child));
-		    //Lily.exec(dirOut, c);
+		    out.write(HTML.tabCell(new Chant(child).getTitre()));
+		    out.write(HTML.tabCell("42"));
+		    out.write(HTML.tabCell(HTML.hyperLink
+			  (Midi.exec(dirOut, new Chant(child)), "midi")));
+		    out.write(HTML.tabCell(HTML.hyperLink
+			  (Lily.exec(dirOut, new Chant(child)), "lily")));
 		}
 		catch (EmptyFileException | ChantFormatException
 		       | IOException e) {
 		    System.out.println(e);
 		}
+		out.write(HTML.closeRow());
 	    }
 	}
+	out.write(HTML.closeHeaders());
+	out.close();
     }
 
     /**
