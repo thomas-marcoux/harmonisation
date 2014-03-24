@@ -1,6 +1,8 @@
 package harmonie;
 
-public abstract class CLI {
+import	java.util.ArrayList;
+
+public class CLI {
 
     /**
      * Classe interface : elle parcours les arguments
@@ -12,7 +14,7 @@ public abstract class CLI {
      */
     private static final String	OPTION_NAME = "-name";
     private static final String	OPTION_HELP = "-h";
-    private static final String	OPTION_LILY = "-ly";
+
     private static final String	OPTION_NOMBRE = "-nombre";
     private static final String	OPTION_BEAUTE = "-beaute";
 
@@ -26,30 +28,34 @@ public abstract class CLI {
      */
     public static void	parse(String[] args) 
 	throws OptionsFormatException {
+	parse(argstoStringTab(args));
+    }
+
+    public static void	parse(String[][] args) 
+	throws OptionsFormatException {
 	Chant	c = null;
 
-	for (int i = 0; i < args.length; ++i) {
-	    switch (args[i]) {
+	for (String[] row : args)
+	    switch (row[0]) {
 	    case OPTION_NAME :
 		showNames(); break;
 	    case OPTION_HELP :
 		showHelp(); break;
 	    case Midi.OPTION :
-		i = Midi.exec(c, args, i); break;
+		Midi.exec(c, row); break;
+	    case Lily.OPTION :
+		Lily.exec(c, row); break;
 		/*
-		  case Lily.OPTION :
-		  i = Lily.exec(c, args, i); break;
 		  case Harmonisations.OPTION :
 		  Harmonisation.exec(args, i++); break;
 		  case Beaute.OPTION :
 		  Chant = Beaute.exec(args, i++); break;
 		*/
 	    case Dossiers.OPTION :
-		i = Dossiers.exec(args, i); break;
+		Dossiers.exec(row); break;
 	    default :
-		throw new OptionsFormatException(args[i]);
+		throw new OptionsFormatException(row[0]);
 	    }
-	}
     }
 
     /**
@@ -76,5 +82,31 @@ public abstract class CLI {
      */    
     public static void	showHelp() {
 	System.out.println(HELP);
+    }
+
+    /**
+     * Formate un tableau de String en double tableau de String
+     */
+    private static String[][]	argstoStringTab(String[] args)
+	throws OptionsFormatException {
+	ArrayList<String[]>	r = new ArrayList<String[]>();
+	ArrayList<String>	array = new ArrayList<String>();
+
+	for (int i = 0; i < args.length;) {
+	    if (!isOption(args[i]))
+		throw new OptionsFormatException(args[i]);
+	    r.add(extractOption(array, args, i++));
+	    for (; i < args.length && !isOption(args[i]); ++i);
+	}
+	return r.toArray(new String[r.size()][]);
+    }
+
+    private static String[]	extractOption(ArrayList<String> array,
+				      String[] args, int i) {
+	array.clear();
+	array.add(args[i++]);
+	for (; i < args.length && !isOption(args[i]); ++i)
+	    array.add(args[i]);
+	return array.toArray(new String[array.size()]);
     }
 }
