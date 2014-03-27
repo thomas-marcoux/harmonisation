@@ -29,7 +29,6 @@ public class Dossiers {
      */
     public static void	exec(String[] args)
 	throws OptionsFormatException {
-	Chant		c;
 	File		dirIn;
 	File		dirOut;
 
@@ -55,7 +54,7 @@ public class Dossiers {
 	throws IOException {
 	BufferedWriter	out = new BufferedWriter
 	    (new FileWriter(new File(dirOut, HTML.FILE_NAME)));
-	
+
 	out.write(HTML.openHeaders());
 	out.write(HTML.tabRow(HTML.headerRow()));
 	for (File child : dirIn.listFiles()) {
@@ -70,10 +69,8 @@ public class Dossiers {
 		try {
 		    out.write(HTML.tabCell(new Chant(child).getTitre()));
 		    out.write(HTML.tabCell("42"));
-		    out.write(HTML.tabCell(HTML.hyperLink
-			  (Midi.exec(dirOut, new Chant(child)), "midi")));
-		    out.write(HTML.tabCell(HTML.hyperLink
-			  (Lily.exec(dirOut, new Chant(child)), "lily")));
+		    out.write(HTML.tabCell(HTML.hyperLink(Midi.exec(dirOut, new Chant(child)), "midi")));
+		    out.write(HTML.tabCell(HTML.hyperLink(Lily.exec(dirOut, new Chant(child)), "lily")));
 		}
 		catch (EmptyFileException | ChantFormatException
 		       | IOException e) {

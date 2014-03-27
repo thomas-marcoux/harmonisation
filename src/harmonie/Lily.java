@@ -80,12 +80,13 @@ public class Lily {
 	    BufferedWriter	s_out = new BufferedWriter
 		(new FileWriter(out));
 	    writeHeader(s_out, c.getTitre());
-	    writeTrack(s_out, c.getSoprano(), INSTRU_SOPRA, TREBLE);
+	    writeStaff(s_out, c.getSoprano(), INSTRU_SOPRA, TREBLE);
 	    /*
-	      writeTrack(s_out, c.getAlto(), INSTRU_ALTO, TREBLE);
-	      writeTrack(s_out, c.getTenor(), INSTRU_TENOR, TREBLE);
-	      writeTrack(s_out, c.getBasse(), INSTRU_BASSE, BASSE);
+	      writeStaff(s_out, c.getAlto(), INSTRU_ALTO, TREBLE);
+	      writeStaff(s_out, c.getTenor(), INSTRU_TENOR, TREBLE);
+	      writeStaff(s_out, c.getBasse(), INSTRU_BASSE, BASSE);
 	    */
+	    s_out.write(">>");
 	    s_out.close();
 		return out;
 	}
@@ -96,46 +97,41 @@ public class Lily {
     }
 
     /**
-     * Ecriture d'un track unique
+     * Ecriture d'un staff unique
      */
-    private static void	writeTrack(BufferedWriter out,
+    private static void	writeStaff(BufferedWriter out,
 				   int[] t, String instru, String clef)
     throws IOException {
-	String	note;
+	char	note;
+	int	last_note;
+	int	l;
 
-	out.write("% " + instru);
+	note = 'c';
+	last_note = 0;
 	out.write("\\new Staff {");
 	out.write("\\set Staff.instrumentName = #\"" + instru + "\"");
 	out.write("\\clef " + clef);
-	out.write("\\relative " + "c" + "{");
+	out.write("\\relative " + "c''" + "{");
 	for (int i = 0; i < t.length;) {
-	    /*
-	    if (Chant.isNote(t[i])) {
-		note = noteToMidi(t[i]);
-		track.add(noteOn(note, i++, canal));
-		for (; i < t.length && t[i] == Chant.REPEAT; ++i);
-		track.add(noteOff(note, i, canal));
-	    }
-	    else
-		++i;
-	    */
-	    if (Chant.isNote(t[i]))
-		note = noteToLily(t[i++]);
-	    else
-		++i;
+	    l = 1;
+	    if (i > 0)
+		note -= last_note - t[i];
+	    last_note = t[i++];
+	    out.write(note);
+	    for (; i < t.length && !Chant.isNote(t[i]); ++i, ++l);
+	    if (l > 1)
+		out.write(String.valueOf(l));
+	    out.write(" ");
 	}
 	out.write("}}");
     }
 
     private static void	writeHeader(BufferedWriter out, String titre)
 	throws IOException {
+	out.write("\\version \"2.14.2\"");
 	out.write("\\header{");
 	out.write("title = \"" + titre + "\"}");
 	out.write("\\new ChoirStaff<<");
-    }
-
-    private static String	noteToLily(int note) {
-	return "a";
     }
 
     private static boolean	isLowerThanFa(int note) {
