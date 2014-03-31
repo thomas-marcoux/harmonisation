@@ -31,6 +31,7 @@ public class Lily {
     private static final String TREBLE = "treble";
     private static final String BASSE = "bass";
 
+    private static final String VERSION = "2.14.2";
     /**
      * La methode appelee par la classe CLI
      * @param	c	L'objet chant cree par Beaute. Null si Beaute n'a
@@ -80,11 +81,11 @@ public class Lily {
 	    BufferedWriter	s_out = new BufferedWriter
 		(new FileWriter(out));
 	    writeHeader(s_out, c.getTitre());
-	    writeStaff(s_out, c.getSoprano(), INSTRU_SOPRA, TREBLE);
+	    writeStaff(s_out, c.getSoprano(), INSTRU_SOPRA, TREBLE, 2);
 	    /*
-	      writeStaff(s_out, c.getAlto(), INSTRU_ALTO, TREBLE);
-	      writeStaff(s_out, c.getTenor(), INSTRU_TENOR, TREBLE);
-	      writeStaff(s_out, c.getBasse(), INSTRU_BASSE, BASSE);
+	      writeStaff(s_out, c.getAlto(), INSTRU_ALTO, TREBLE, 2);
+	      writeStaff(s_out, c.getTenor(), INSTRU_TENOR, TREBLE, 1);
+	      writeStaff(s_out, c.getBasse(), INSTRU_BASSE, BASSE, 0);
 	    */
 	    s_out.write(">>");
 	    s_out.close();
@@ -99,39 +100,75 @@ public class Lily {
     /**
      * Ecriture d'un staff unique
      */
-    private static void	writeStaff(BufferedWriter out,
-				   int[] t, String instru, String clef)
+    /*
+      ecrire une methode qui gere l'ecriture des notes (si note > 'g' ==> 'a', ...)
+     */
+    private static void	writeStaff(BufferedWriter out, int[] t,
+				   String instru, String clef, int relat)
     throws IOException {
 	char	note;
 	int	last_note;
 	int	l;
+	int	last_l;
 
-	note = 'c';
+	note = firstNote(t);
 	last_note = 0;
-	out.write("\\new Staff {");
-	out.write("\\set Staff.instrumentName = #\"" + instru + "\"");
-	out.write("\\clef " + clef);
-	out.write("\\relative " + "c''" + "{");
+	last_l = 1;
+	out.write(staffHead(instru, clef, relat));
+	out.write("{");
 	for (int i = 0; i < t.length;) {
 	    l = 1;
-	    if (i > 0)
-		note -= last_note - t[i];
-	    last_note = t[i++];
+	    if (Chant.isNote(t[i])) {
+		if (i > 0)
+		    note -= last_note - t[i];
+		last_note = t[i];
+	    }
+	    else
+		note = 'r';
 	    out.write(note);
-	    for (; i < t.length && !Chant.isNote(t[i]); ++i, ++l);
-	    if (l > 1)
-		out.write(String.valueOf(l));
-	    out.write(" ");
+	    ++i;
+	    for (; i < t.length && t[i] == Chant.REPEAT; ++i, ++l);
+	    out.write(noteLength(last_l, l) + " ");
+	    last_l = l;
 	}
 	out.write("}}");
     }
 
+    private static char	firstNote(int[] track) {
+	char	base = 'c';
+
+	base += Chant.getNoteBase(track[0]);
+	return base;
+    }
+
+    private static String	staffHead(String instru, String clef,
+					  int relat) throws IOException {
+	String	r = 
+	    "\\new Staff {"
+	    + "\\set Staff.instrumentName = #\"" + instru + "\""
+	    + "\\clef " + clef
+	    + "\\relative " + "c";
+	for (int i = 0; i < relat; ++i)
+	    r += "'";
+	return r;
+    }
+
     private static void	writeHeader(BufferedWriter out, String titre)
 	throws IOException {
-	out.write("\\version \"2.14.2\"");
+	out.write("\\version \"" + VERSION + "\"");
 	out.write("\\header{");
 	out.write("title = \"" + titre + "\"}");
 	out.write("\\new ChoirStaff<<");
+    }
+    
+    private static String	noteLength(int last, int l) {
+	if (l != last && l == 1)
+	    return String.valueOf(4);
+	if (l != last && l == 3)
+	    return String.valueOf("2.");
+	if (l != last)
+	    return String.valueOf(l);
+	return "";
     }
 
     private static boolean	isLowerThanFa(int note) {
