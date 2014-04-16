@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class HarmonieAuto {
+
+    private static final String	AUTEUR1 = "William Malbos";
+    private static final String	AUTEUR2 = "Thomas Marcoux";
+    private static final String	AUTEUR3 = "Marine Maziarczyk";
+    public static final String	AUTEURS[] = {AUTEUR1, AUTEUR2, AUTEUR3};
+
 	public static int k = 5;
 
 	/**
