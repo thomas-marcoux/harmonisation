@@ -9,26 +9,6 @@ import java.util.LinkedList;
 import org.junit.Test;
 
 public class listeJeuxTest extends listeJeux {
-
-	private static Note DO = new Note("DO", 0, 7, 14, 21);
-	private static Note RE = new Note("RE", 1, 8, 15, 22);
-	private static Note MI = new Note("MI", 2, 9, 16, 23);
-	private static Note FA = new Note("FA", 3, 10, 17, 24);
-	private static Note SOL = new Note("SOL", 4, 11, 18, 25);
-	private static Note LA = new Note("LA", 5, 12, 19, 26);
-	private static Note SI = new Note("SI", 6, 13, 20, 27);
-
-	private Accord I = new Accord("DO", DO, MI, SOL);
-	private Accord II = new Accord("RE", RE, FA, LA);
-	private Accord III = new Accord("MI", MI, SOL, SI);
-	private Accord IV = new Accord("FA", FA, LA, DO);
-	private Accord IVb = new Accord("FAb", FA, LA, DO);
-	private Accord V = new Accord("SOL", SOL, SI, RE);
-	private Accord VI = new Accord("LA", LA, DO, MI);
-	private Accord VII = new Accord("SI", SI, RE, FA);
-
-	public static LinkedList<Note> listeGeneralNotes = new LinkedList<Note>(
-			Arrays.asList(DO, RE, MI, FA, SOL, LA, SI, DO));
 	
 	private LinkedList<Integer> jeu = new LinkedList<Integer>();
 	private LinkedList<Integer> jeu2 = new LinkedList<Integer>();
@@ -61,7 +41,7 @@ public class listeJeuxTest extends listeJeux {
 		assertNotNull(listeJeuVI);
 		assertNotNull(listeJeuVII);
 	}
-
+	
 	@Test
 	public void testgetPlusBeauPrec() {
 		assertEquals(null, listeJeuI.getPlusBeauPrec());
@@ -279,33 +259,6 @@ public class listeJeuxTest extends listeJeux {
 		assertEquals(false, listeJeuV.memeAccord(4,21,null,listeGeneralNotes));
 		assertEquals(true, listeJeuVII.memeAccord(11,25,null,listeGeneralNotes));
 		assertEquals(true, listeJeuI.memeAccord(21,21,null,listeGeneralNotes));
-	}
-
-	@Test
-	public void testtrouverNote() {
-		assertEquals(DO, trouverNote(0, listeGeneralNotes));
-		assertEquals(RE, trouverNote(8, listeGeneralNotes));
-		assertEquals(MI, trouverNote(16, listeGeneralNotes));
-		assertEquals(FA, trouverNote(24, listeGeneralNotes));
-		assertEquals(SOL, trouverNote(18, listeGeneralNotes));
-		assertEquals(LA, trouverNote(12, listeGeneralNotes));
-		assertEquals(SI, trouverNote(6, listeGeneralNotes));
-		
-	}
-
-	@Test
-	public void testdifference() {
-		assertEquals(true, difference(10, 16));
-		assertEquals(true, difference(16, 10));
-		assertEquals(false, difference(20, 13));
-		assertEquals(false, difference(13, 20));
-	}
-
-	@Test
-	public void testdifferenceRegle() {
-		assertEquals(10, differenceRegle(20, 10));
-		assertEquals(10, differenceRegle(10, 20));
-		assertEquals(0, differenceRegle(10, 10));
 	}
 
 	@Test

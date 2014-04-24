@@ -3,7 +3,6 @@ package harmonie;
 import	java.util.HashMap;
 import	java.util.Scanner;
 import	java.io.BufferedReader;
-import	java.io.File;
 import	java.io.FileReader;
 import	java.io.IOException;
 
@@ -60,31 +59,20 @@ public class Chant {
 
     /**
      * Constructeur de la classe Chant.
-     * @param	file	Le File .chant
+     * @param	fileName	Le nom du fichier .chant
      * @return			Un objet Chant
      */
-    public Chant(File file)
+    public Chant(String fileName)
 	throws IOException, EmptyFileException, ChantFormatException {
 	this.titre = new String();
-	soprano = initSoprano(chantFileToStringTab(file));
+	soprano = initSoprano(chantFileToStringTab(fileName));
+
 	/*
 	 * Initialisation de tracks par l'appel des methodes
 	 * d'harmonisation et de beaute
-	 * Les initialiser dans une methode unique de facon a pouvoir
-	 * les changer sans creer de nouvel objet.
 	 */
     }
-
-    /**
-     * Constructeur de la classe Chant.
-     * @param	fileName	Le nom du fichier .chant
-     * @return			Un objet Chant
-     */    
-    public Chant(String fileName)
-	throws IOException, EmptyFileException, ChantFormatException {
-	this(new File(fileName));
-    }
-
+    
     /**
      * Getter du tableau de notes soprano du Chant.
      * @return	Un tableau d'int
@@ -163,7 +151,7 @@ public class Chant {
      * Methodes private pour lire les fichiers
      * et initialiser les tableaux.
      */
-    private static int[]	initSoprano(String[] notes)	
+    private int[]	initSoprano(String[] notes)	
 	throws ChantFormatException {
 	HashMap<String, Integer>	map
 	    = new HashMap<String, Integer>();
@@ -194,10 +182,10 @@ public class Chant {
 	return soprano;
     }
 
-    private String[]	chantFileToStringTab(File file)
+    private String[]	chantFileToStringTab(String fileName)
 	throws IOException, EmptyFileException {
 	Scanner		fileIn = new Scanner
-	    (new BufferedReader(new FileReader(file)));
+	    (new BufferedReader(new FileReader(fileName)));
 	String		buff= new String();
 	
 	if (fileIn.hasNextLine())
@@ -206,7 +194,7 @@ public class Chant {
 	    buff += fileIn.nextLine() + " ";
 	fileIn.close();
 	if (buff.isEmpty())
-	    throw new EmptyFileException(file.getName());
+	    throw new EmptyFileException();
 	return buff.split(" ");
     }
         
@@ -214,22 +202,22 @@ public class Chant {
      * Diverses methode private pour recuperer
      * des informations sur les notes a partir du fichier chant
      */
-    private static String	getKey(String note) {
+    private String	getKey(String note) {
 	return (note.split(":"))[0].replaceAll("\\d","");
     }
 
-    private static int	getNoteOctave(String note) {
+    private int	getNoteOctave(String note) {
 	String	buff = note.split(":")[0];
 	
 	return (buff.equals("-"))
 	    ? 1 : buff.charAt(buff.length() - 1) - 48;
     }
 
-    private static int	getNoteLength(String note) {
+    private int	getNoteLength(String note) {
 	return Integer.parseInt((note.split(":"))[1]);
     }
 
-    private static int	getSongLength(String[] notes) {
+    private int	getSongLength(String[] notes) {
 	int	r = 0;
 	
 	for (String s : notes)
@@ -240,7 +228,7 @@ public class Chant {
     /**
      * Controle du format
      */
-    private static void	checkChantFormat(String[] notes)
+    private void	checkChantFormat(String[] notes)
 	throws ChantFormatException {
 	for (String s : notes)
 	    if (!s.matches(NOTE_FORMAT))
