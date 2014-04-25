@@ -11,15 +11,15 @@ public class Initialisations {
 	 * 
 	 * @return LinkedList<listeJeu> La "listeGeneralJeux" initialisée
 	 */
-	public static ArrayList<LinkedList<listeJeux>> initialisationDuGraphe() {
+	public static ArrayList<LinkedList<listeJeux>> initialisationDuGraphe(int[] tabSoprano) {
 		ArrayList<LinkedList<listeJeux>> listeGeneraleJeux = new ArrayList<LinkedList<listeJeux>>();
 		LinkedList<listeJeux> liste = new LinkedList<listeJeux>();
 
-		for (int i = 0; i < HarmonieAuto.tabSoprano.length; i++) {
-			Note note = Note.trouverNote(HarmonieAuto.tabSoprano[i]);
+		for (int i = 0; i < tabSoprano.length; i++) {
+			Note note = Note.trouverNote(tabSoprano[i]);
 			LinkedList<Accord> accord = Accord.trouverAccord(note, i);
 
-			listeJeuxNote(accord, note, HarmonieAuto.tabSoprano[i], i, liste);
+			listeJeuxNote(accord, note, tabSoprano[i], i, liste);
 
 			LinkedList<listeJeux> listeCopie = ParcoursGraphe
 					.copieListeJeux(liste);
