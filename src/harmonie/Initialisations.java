@@ -17,7 +17,7 @@ public class Initialisations {
 
 		for (int i = 0; i < tabSoprano.length; i++) {
 			Note note = Note.trouverNote(tabSoprano[i]);
-			LinkedList<Accord> accord = Accord.trouverAccord(note, i);
+			LinkedList<Accord> accord = Accord.trouverAccord(note, i, tabSoprano);
 
 			listeJeuxNote(accord, note, tabSoprano[i], i, liste);
 

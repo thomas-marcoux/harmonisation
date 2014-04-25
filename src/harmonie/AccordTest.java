@@ -7,6 +7,10 @@ import java.util.LinkedList;
 import org.junit.Test;
 
 public class AccordTest extends Accord{
+	
+	public static final int[] tabSoprano = { 21, 21, 21, 22, 23, 23, 22, 22,
+	21, 23, 22, 22, 21, 21, 21, 21 };
+
 	public AccordTest(String nom, Note tonique, Note tierce, Note quinte) {
 		super(nom, tonique, tierce, quinte);
 	}
@@ -47,9 +51,9 @@ public class AccordTest extends Accord{
 		AccSi.add(V);
 		AccSi.add(VII);
 		
-		assertEquals(AccDo,trouverAccord(Note.DO,1));
-		assertEquals(AccFa,trouverAccord(Note.FA,1));
-		assertEquals(AccSi,trouverAccord(Note.SI,1));
+		assertEquals(AccDo,trouverAccord(Note.DO,1, tabSoprano));
+		assertEquals(AccFa,trouverAccord(Note.FA,1, tabSoprano));
+		assertEquals(AccSi,trouverAccord(Note.SI,1, tabSoprano));
 	}
 	
 	@Test

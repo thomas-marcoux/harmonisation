@@ -61,7 +61,7 @@ public class Accord {
 	 * @return LinkedList<Accord>
 	 * 			  La liste des trois accords où se trouve Note
 	 * */
-	public static LinkedList<Accord> trouverAccord(Note note, int indice) {
+	public static LinkedList<Accord> trouverAccord(Note note, int indice, int[] tabSoprano) {
 		LinkedList<Accord> listeAccord = new LinkedList<Accord>();
 
 		Iterator<Accord> it = listeGeneralAccords.iterator();
@@ -73,7 +73,7 @@ public class Accord {
 					|| (note.equals(actuel.getQuinte()))) {
 
 				if (!((indice == 0) && (actuel.getNom().equals("FAb")))
-						|| ((indice == HarmonieAuto.tabSoprano.length - 1) && (actuel
+						|| ((indice == tabSoprano.length - 1) && (actuel
 								.getNom().equals("IVb")))) {
 					listeAccord.add(actuel);
 				}
