@@ -52,16 +52,12 @@ public class Midi {
      * @return		La valeur a ajoute a l'iterateur pour
      *			sauter les arguments de l'option
      */
-    public static void	exec(Chant c, String[] args) 
+    public static void	exec(String[] args, int k) 
 	throws OptionsFormatException {
 	if (args.length - 1 < NB_ARGUMENTS
 	    || CLI.isOption(args[1]) || CLI.isOption(args[2]))
 	    throw new OptionsFormatException(OPTION, NB_ARGUMENTS);
-	if (c == null)
-	    write(args[1], args[2]);
-	else
-	    write(c, new File(args[2]));
-	c = null;
+	write(args[1], args[2], k);
     }
 
     /**
@@ -77,9 +73,9 @@ public class Midi {
     /**
      * Les methodes d'ecriture de fichiers Midi
      */
-    private static File write(String fileIn, String fileOut)  {
+    private static File write(String fileIn, String fileOut, int k)  {
 	try {
-	    return write(new Chant(fileIn), new File(fileOut));
+	    return write(new Chant(fileIn, k), new File(fileOut));
 	}
 	catch (EmptyFileException | ChantFormatException
 	       | IOException e) {

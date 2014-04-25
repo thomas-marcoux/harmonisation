@@ -1,8 +1,10 @@
 package harmonie;
 
+import	Exceptions.*;
 import	java.util.HashMap;
 import	java.util.Scanner;
 import	java.io.BufferedReader;
+import	java.io.File;
 import	java.io.FileReader;
 import	java.io.IOException;
 
@@ -26,6 +28,7 @@ public class Chant {
      */    
     public static final int	PAUSE = -1;
     public static final int	REPEAT = -2;
+    public static final int	DEFAULT_BEAUTE = 1;
 
     /**
      * Notes
@@ -54,32 +57,61 @@ public class Chant {
      * Tableau de notes soprano et titre du morceau
      */
     private int[][]	tracks;
-    private int[]	soprano;
     private String	titre;
+
+    /**
+     * Constructeur de la classe Chant.
+     * @param	file	Le File .chant
+     * @param	k	L'indice de beaute
+     * @return			Un objet Chant
+     */
+    public Chant(File file, int k)
+	throws IOException, EmptyFileException, ChantFormatException {
+	this.titre = new String();
+	
+	tracks = Initialisations.convertionListTab
+	    (Initialisations.initialisationSuivant
+	     (Initialisations.initialisationDuGraphe
+	      (initSoprano(chantFileToStringTab(file))), k));
+    }
+
+    /**
+     * Constructeur de la classe Chant.
+     * @param	file	Le File .chant
+     * @return			Un objet Chant
+     */
+    public Chant(File file)
+	throws IOException, EmptyFileException, ChantFormatException {
+	this(file, DEFAULT_BEAUTE);
+    }
+
+    /**
+     * Constructeur de la classe Chant.
+     * @param	fileName	Le nom du fichier .chant
+     * @param	k	L'indice de beaute
+     * @return			Un objet Chant
+     */    
+    public Chant(String fileName, int k)
+	throws IOException, EmptyFileException, ChantFormatException {
+	this(new File(fileName), k);
+    }
 
     /**
      * Constructeur de la classe Chant.
      * @param	fileName	Le nom du fichier .chant
      * @return			Un objet Chant
-     */
+     */    
     public Chant(String fileName)
 	throws IOException, EmptyFileException, ChantFormatException {
-	this.titre = new String();
-	soprano = initSoprano(chantFileToStringTab(fileName));
-
-	/*
-	 * Initialisation de tracks par l'appel des methodes
-	 * d'harmonisation et de beaute
-	 */
+	this(new File(fileName));
     }
-    
+
     /**
      * Getter du tableau de notes soprano du Chant.
      * @return	Un tableau d'int
      */
     public int[]	getSoprano() {
-	return soprano;
-	//return tracks[SOPRANO];
+	return tracks[SOPRANO];
     }
 
     /**
@@ -151,7 +183,7 @@ public class Chant {
      * Methodes private pour lire les fichiers
      * et initialiser les tableaux.
      */
-    private int[]	initSoprano(String[] notes)	
+    private static int[]	initSoprano(String[] notes)	
 	throws ChantFormatException {
 	HashMap<String, Integer>	map
 	    = new HashMap<String, Integer>();
@@ -182,10 +214,10 @@ public class Chant {
 	return soprano;
     }
 
-    private String[]	chantFileToStringTab(String fileName)
+    private String[]	chantFileToStringTab(File file)
 	throws IOException, EmptyFileException {
 	Scanner		fileIn = new Scanner
-	    (new BufferedReader(new FileReader(fileName)));
+	    (new BufferedReader(new FileReader(file)));
 	String		buff= new String();
 	
 	if (fileIn.hasNextLine())
@@ -194,7 +226,7 @@ public class Chant {
 	    buff += fileIn.nextLine() + " ";
 	fileIn.close();
 	if (buff.isEmpty())
-	    throw new EmptyFileException();
+	    throw new EmptyFileException(file.getName());
 	return buff.split(" ");
     }
         
@@ -202,22 +234,22 @@ public class Chant {
      * Diverses methode private pour recuperer
      * des informations sur les notes a partir du fichier chant
      */
-    private String	getKey(String note) {
+    private static String	getKey(String note) {
 	return (note.split(":"))[0].replaceAll("\\d","");
     }
 
-    private int	getNoteOctave(String note) {
+    private static int	getNoteOctave(String note) {
 	String	buff = note.split(":")[0];
 	
 	return (buff.equals("-"))
 	    ? 1 : buff.charAt(buff.length() - 1) - 48;
     }
 
-    private int	getNoteLength(String note) {
+    private static int	getNoteLength(String note) {
 	return Integer.parseInt((note.split(":"))[1]);
     }
 
-    private int	getSongLength(String[] notes) {
+    private static int	getSongLength(String[] notes) {
 	int	r = 0;
 	
 	for (String s : notes)
@@ -228,7 +260,7 @@ public class Chant {
     /**
      * Controle du format
      */
-    private void	checkChantFormat(String[] notes)
+    private static void	checkChantFormat(String[] notes)
 	throws ChantFormatException {
 	for (String s : notes)
 	    if (!s.matches(NOTE_FORMAT))
