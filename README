@@ -1,6 +1,2 @@
 Universite d'Orleans, France
 Projet de L2, Semestre 4
-
-Utilisez getSoprano() pour recuperer le tableau d'int qui contient les notes.
-Les constantes utiles sont REPEAT (si la note dure plus d'un temps)
-et PAUSE (si on rencontre un "-").
