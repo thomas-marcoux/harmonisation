@@ -9,15 +9,7 @@ public class HarmonieAuto {
     private static final String	AUTEUR3 = "Marine Maziarczyk";
     public static final String	AUTEURS[] = {AUTEUR1, AUTEUR2, AUTEUR3};
     
-    public static final int[] tabSoprano = { 21, 21, 21, 22, 23, 23, 22,
-					     22, 21, 23, 22, 22, 21, 21,
-					     21, 21 };
-    public static int k = 3;
-    /*
-      Si k == 5 alors affiche le nombre
-      d'harmonisations, c'est le k rentrer par
-      l'utilisateur
-    */
+    //Si k == 5 alors affiche le nombre d'harmonisations
 
 	/**
 	 * @param args
@@ -33,21 +25,5 @@ public class HarmonieAuto {
 	    }
 	    else
 		CLI.showHelp();
-
-	    /*
-		int[][] tabFinalHarmonie;
-
-		// Creation de l'harmonisation
-		tabFinalHarmonie = Initialisations.convertionListTab
-		    (Initialisations.initialisationSuivant
-		     (Initialisations.initialisationDuGraphe(tabSoprano, k));
-
-		// Affichage de l'harmonisation
-		for (int i = 0; i < tabFinalHarmonie.length; i++) {
-		    for (int j = 0; j < tabFinalHarmonie[i].length; j++) {
-			System.out.print(tabFinalHarmonie[i][j] + " ");
-		    }
-		}
-	    */
 	}
 }
