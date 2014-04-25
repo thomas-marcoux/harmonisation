@@ -6,7 +6,11 @@ import java.util.LinkedList;
 
 import org.junit.Test;
 
-public class NoteTest {
+public class NoteTest extends Note{
+
+	public NoteTest(String nom, int note1, int note2, int note3, int note4) {
+		super(nom, note1, note2, note3, note4);
+	}
 
 	private Note note1 = new Note("1", 1, 2, 3, 4);
 	private Note note2 = new Note("2", 5, 6, 7, 8);
@@ -17,6 +21,24 @@ public class NoteTest {
 		assertNotNull(note2);
 	}
 
+	@Test
+	public void testtrouverNote() {
+		assertEquals(DO, trouverNote(21));
+		assertEquals(DO, trouverNote(0));
+		assertEquals(RE, trouverNote(8));
+		assertEquals(RE, trouverNote(15));
+		assertEquals(MI, trouverNote(2));
+		assertEquals(MI, trouverNote(9));
+		assertEquals(FA, trouverNote(3));
+		assertEquals(FA, trouverNote(17));
+		assertEquals(SOL, trouverNote(4));
+		assertEquals(SOL, trouverNote(11));
+		assertEquals(LA, trouverNote(12));
+		assertEquals(LA, trouverNote(19));
+		assertEquals(SI, trouverNote(6));
+		assertEquals(SI, trouverNote(27));
+	}
+	
 	@Test
 	public void testEquals() {
 		assertEquals(false, note1.equals(note2));

@@ -1,63 +1,53 @@
 package harmonie;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import Exceptions.*;
 
 public class HarmonieAuto {
-
+    
     private static final String	AUTEUR1 = "William Malbos";
     private static final String	AUTEUR2 = "Thomas Marcoux";
     private static final String	AUTEUR3 = "Marine Maziarczyk";
     public static final String	AUTEURS[] = {AUTEUR1, AUTEUR2, AUTEUR3};
-
-	public static int k = 5;
+    
+    public static final int[] tabSoprano = { 21, 21, 21, 22, 23, 23, 22,
+					     22, 21, 23, 22, 22, 21, 21,
+					     21, 21 };
+    public static int k = 3;
+    /*
+      Si k == 5 alors affiche le nombre
+      d'harmonisations, c'est le k rentrer par
+      l'utilisateur
+    */
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		LinkedList<LinkedList<Integer>> meilleurHarmonisation;
-		ArrayList<LinkedList<listeJeux>> listeDesJeux = new ArrayList<LinkedList<listeJeux>>();
-
-		// TODO Auto-generated method stub
-		/*
-		 * HarmonieRoot root = new HarmonieRoot();
-		 * 
-		 * if (args.length > 1) root.start(args); else root.showHelp();
-		 */
-
+	    if (args.length > 1) {
 		try {
-			Chant c = new Chant("lune.chant");
-			int[] s = c.getSoprano();
-
-			for (int i = 0; i < s.length; ++i) {
-				System.out.print("soprano[" + i + "] = " + s[i]);
-				if (s[i] == Chant.REPEAT)
-					System.out.print(" (Chant.REPEAT)");
-				else if (s[i] == Chant.PAUSE)
-					System.out.print("(Chant.PAUSE)");
-				System.out.println();
-			}
-		} catch (IOException | ChantFormatException | EmptyFileException e) {
-			System.out.println(e);
+		    CLI.parse(args);
 		}
-
-		
-		
-		
-		/*listeDesJeux = GrapheAccord.initialisationDuGrapheEtChoixDuK(k);*/
-		
-		
-		// Si k = 5 on affiche le nombre d'harmonisations sinon on récupère la
-		// LinkedList<LinkedList<Integer>>
-		if (k == 5) {
-			GrapheAccord.initialisationDuGrapheEtChoixDuK(k);
-			
-		} else {
-			meilleurHarmonisation = new LinkedList<LinkedList<Integer>>();
-			/* meilleurHarmonisation = */GrapheAccord
-					.initialisationDuGrapheEtChoixDuK(k);
+		catch (OptionsFormatException e) {
+		    System.out.println(e);
 		}
+	    }
+	    else
+		CLI.showHelp();
+
+	    /*
+		int[][] tabFinalHarmonie;
+
+		// Creation de l'harmonisation
+		tabFinalHarmonie = Initialisations.convertionListTab
+		    (Initialisations.initialisationSuivant
+		     (Initialisations.initialisationDuGraphe(tabSoprano, k));
+
+		// Affichage de l'harmonisation
+		for (int i = 0; i < tabFinalHarmonie.length; i++) {
+		    for (int j = 0; j < tabFinalHarmonie[i].length; j++) {
+			System.out.print(tabFinalHarmonie[i][j] + " ");
+		    }
+		}
+	    */
 	}
 }

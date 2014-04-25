@@ -2,9 +2,15 @@ package harmonie;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
-public class AccordTest {
+public class AccordTest extends Accord{
+	public AccordTest(String nom, Note tonique, Note tierce, Note quinte) {
+		super(nom, tonique, tierce, quinte);
+	}
+
 	private Note premiere = new Note("Tonique", 1, 2, 3, 4);
 	private Note deuxieme = new Note("Tierce", 4, 3, 2, 1);
 	private Note troisieme = new Note("Quinte", 4, 3, 1, 2);
@@ -20,6 +26,32 @@ public class AccordTest {
 		assertNotNull(accord2);
 	}
 
+	@Test
+	public void testtrouverAccord() {
+		LinkedList<Accord> AccDo,AccFa,AccSi;
+		AccDo = new LinkedList<Accord>();
+		AccFa = new LinkedList<Accord>();
+		AccSi = new LinkedList<Accord>();
+		
+		AccDo.add(I);
+		AccDo.add(IV);
+		AccDo.add(IVb);
+		AccDo.add(VI);
+		
+		AccFa.add(II);
+		AccFa.add(IV);
+		AccFa.add(IVb);
+		AccFa.add(VII);
+		
+		AccSi.add(III);
+		AccSi.add(V);
+		AccSi.add(VII);
+		
+		assertEquals(AccDo,trouverAccord(Note.DO,1));
+		assertEquals(AccFa,trouverAccord(Note.FA,1));
+		assertEquals(AccSi,trouverAccord(Note.SI,1));
+	}
+	
 	@Test
 	public void testgetNom() {
 		assertEquals("Accord1", accord1.getNom());

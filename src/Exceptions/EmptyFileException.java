@@ -1,4 +1,4 @@
-package harmonie;
+package Exceptions;
 
 public class EmptyFileException extends Exception{
 
