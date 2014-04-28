@@ -9,6 +9,9 @@ public class HarmonieAuto {
     private static final String	AUTEUR3 = "Marine Maziarczyk";
     public static final String	AUTEURS[] = {AUTEUR1, AUTEUR2, AUTEUR3};
     
+    //Exemple de tableau soprano avec mes constantes
+    //int[] soprano = {21, 21, 21, 22, 23, Chant.REPEAT, 22, Chant.REPEAT, 21, 23, 22, 22, 21, Chant.REPEAT, Chant.REPEAT, Chant.PAUSE};
+    
     //Si k == 5 alors affiche le nombre d'harmonisations
 
 	/**
