@@ -135,7 +135,8 @@ public class Chant {
      * @return	Un tableau d'int
      */
     public int[]	getBasse() {
-	return tracks[BASSE];
+	//return tracks[BASSE];
+	return tracks[TENOR];
     }
 
     /**
