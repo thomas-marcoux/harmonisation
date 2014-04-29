@@ -82,28 +82,17 @@ public class Initialisations {
 			listeFinalHarmonie =  ParcoursGraphe.recherche(Regles
 					.initialisationListesJeuxRegleQuatre(listeGeneraleJeux));
 			
-		int[][] tableau = new int[listeFinalHarmonie.size()][5];
+		int[][] tableau = new int[5][listeFinalHarmonie.size()];
 
-		for (int i = 0; i < tableau.length; i++) {
-			for (int j = 0; j < tableau[i].length; j++) {
-				switch (j) {
-				case 0:
-					tableau[i][j] = soprano[i];
-					break;
-				case 1:
-					tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(1);
-					break;
-				case 2:
-					tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(2);
-					break;
-				case 3:
-					tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(3);
-					break;
-				}
+		for (int i = 0; i < 4; i++) {
+		    for (int j = 0; j < tableau[i].length; j++) {
+			    if (j == 0)
+				tableau[i][j] = soprano[i];
+			    else
+				tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(j);
 			}
 		}
-		
-		tableau[0][4] = (int)(Regles.nombreHarmonisation(listeGeneraleJeux));
+		tableau[4][0] = (int)(Regles.nombreHarmonisation(listeGeneraleJeux));
 		return tableau;
 	}
 
