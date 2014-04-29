@@ -39,17 +39,18 @@ public class Initialisations {
 	 */
 	public static int [] convertionTab(int [] tabChant){
 		int [] tabSoprano = new int [tabChant.length];
-		
+		int	last_note = Chant.DO;
+
 		for(int i=0; i<tabChant.length; i++){
 			if (tabChant[i] == Chant.REPEAT) {
-				tabSoprano[i] = tabSoprano[i-1];
+			    tabSoprano[i] = last_note;
 			} else if (tabChant[i] == Chant.PAUSE) {
-				tabSoprano [i] = tabSoprano[i-1];
+			    tabSoprano [i] = last_note;
 			} else {
-				tabSoprano[i] = tabChant[i];
+			    tabSoprano[i] = tabChant[i];
+			    last_note = tabSoprano[i];
 			}
 		}
-		
 		return tabSoprano;
 	}
 	
