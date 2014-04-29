@@ -21,7 +21,7 @@ public class HarmonieAuto {
 
 	    //*
 	    int[][] tabFinalHarmonie;
-	    int	k = 3;
+	    int	k =4;
 
 	    tabFinalHarmonie = Initialisations.convertionListTab
 		(Initialisations.initialisationSuivant
