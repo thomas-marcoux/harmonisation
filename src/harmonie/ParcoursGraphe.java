@@ -123,12 +123,9 @@ public class ParcoursGraphe {
 	 * la plus belle liste à l'instant i-1 et remonte les liste en les stockant
 	 * au fur et à mesure dans chemin
 	 * 
-	 * @param listeGenraleJeux
-	 *            La liste de tous les jeux possible à chaque instant pour un
-	 *            chant soprano donné
 	 * @param chemin
 	 *            La liste finale qui contiendra la plus belle Harmonie
-	 * @param meilleure
+	 * @param meilleur
 	 *            Une listeJeux qui va continir pour chaque instant, la plus
 	 *            belle listeJeux possible
 	 * 
@@ -150,16 +147,17 @@ public class ParcoursGraphe {
 	 * Permet de lancer la recherche de chemin sur la "listeGeneraleJeu"
 	 * 
 	 * @param listeGeneraleJeux
-	 * 		La liste de tous les jeux possible à chaque instant pour un
+	 *            La liste de tous les jeux possible à chaque instant pour un
 	 *            chant soprano donné
-	 * @return
-	 * 		LinkedList<listeJeux> la meilleur harmonisations de listeGeneraljeux
+	 * @return LinkedList<listeJeux> la meilleur harmonisations de
+	 *         listeGeneraljeux
 	 */
 	public static LinkedList<listeJeux> recherche(
 			ArrayList<LinkedList<listeJeux>> listeGeneraleJeux) {
 		LinkedList<listeJeux> chemin = new LinkedList<listeJeux>();
 
-		Iterator<listeJeux> itFin = listeGeneraleJeux.get(listeGeneraleJeux.size()-1).iterator();
+		Iterator<listeJeux> itFin = listeGeneraleJeux.get(
+				listeGeneraleJeux.size() - 1).iterator();
 		listeJeux meilleur = null;
 		int meilleurInt = 0;
 

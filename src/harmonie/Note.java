@@ -26,7 +26,7 @@ public class Note {
 
 	private String nom;
 	private LinkedList<Integer> listeNotes;
-	
+
 	/**
 	 * Constructeur Vide qui met tout à "" ou null
 	 */
@@ -50,7 +50,7 @@ public class Note {
 	 */
 	public Note(String nom, int note1, int note2, int note3, int note4) {
 		listeNotes = new LinkedList<Integer>();
-		
+
 		this.nom = nom;
 		listeNotes.add(note1);
 		listeNotes.add(note2);
@@ -62,9 +62,8 @@ public class Note {
 	 * Prend un Integer et retourne la note correspondante à celui-ci.
 	 * 
 	 * @param noteInt
-	 *            	L'Integer dans le chant soprano où il faut trouver le "Note" 
-	 * @return Note 
-	 * 				Le "Note" correspondant à l'Integer noteInt
+	 *            L'Integer dans le chant soprano où il faut trouver le "Note"
+	 * @return Note Le "Note" correspondant à l'Integer noteInt
 	 * 
 	 * */
 	public static Note trouverNote(int noteInt) {
@@ -74,34 +73,32 @@ public class Note {
 		Iterator<Note> it = listeGeneralNotes.iterator();
 		while (it.hasNext() && continuer) {
 			Note actuelle = it.next();
-			
+
 			if (actuelle.getListeNotes().contains(noteInt)) {
 				noteNote = actuelle;
 				continuer = false;
 			}
 		}
-		
+
 		return noteNote;
 	}
-	
-	
+
 	/**
-	 * Renvoie un boolean celon si le "Note" en parametre est égale au "Note" en this
+	 * Renvoie un boolean celon si le "Note" en parametre est égale au "Note" en
+	 * this
 	 * 
 	 * @param a
-	 * 			"Note" a qui sera comparer au "Note" this
- 	 * @return
- 	 * 			"Note" this comparé au "Note" en paramètre
+	 *            "Note" a qui sera comparer au "Note" this
+	 * @return "Note" this comparé au "Note" en paramètre
 	 */
 	public boolean equals(Note a) {
 		return (this.getNom().equals(a.getNom()));
 	}
 
 	/**
-	 * Retourne le nom de "Note" 
+	 * Retourne le nom de "Note"
 	 * 
-	 * @return
-	 * 		Le String nom de "Note"
+	 * @return Le String nom de "Note"
 	 */
 	public String getNom() {
 		return nom;
@@ -111,7 +108,7 @@ public class Note {
 	 * Permet de modifier le nom de "Note"
 	 * 
 	 * @param nom
-	 * 		Le String que prendra "Note"
+	 *            Le String que prendra "Note"
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -120,8 +117,7 @@ public class Note {
 	/**
 	 * Retourne la liste des notes de "Note"
 	 * 
-	 * @return
-	 * 		LinkedList<Integer> listeNotes de "Note"
+	 * @return LinkedList<Integer> listeNotes de "Note"
 	 */
 	public LinkedList<Integer> getListeNotes() {
 		return listeNotes;
@@ -131,7 +127,7 @@ public class Note {
 	 * Permet de modifier la liste des notes de "Note"
 	 * 
 	 * @param listeNotes
-	 * 			LinkedList<Integer> que prendra "Note"
+	 *            LinkedList<Integer> que prendra "Note"
 	 */
 	public void setListeNotes(LinkedList<Integer> listeNotes) {
 		this.listeNotes = listeNotes;

@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import org.junit.Test;
 
 public class listeJeuxTest extends listeJeux {
-	
+
 	private LinkedList<Integer> jeu = new LinkedList<Integer>();
 	private LinkedList<Integer> jeu2 = new LinkedList<Integer>();
 	private LinkedList<Integer> jeu3 = new LinkedList<Integer>();
@@ -40,7 +40,7 @@ public class listeJeuxTest extends listeJeux {
 		assertNotNull(listeJeuVI);
 		assertNotNull(listeJeuVII);
 	}
-	
+
 	@Test
 	public void testgetPlusBeauPrec() {
 		assertEquals(null, listeJeuI.getPlusBeauPrec());
@@ -80,7 +80,7 @@ public class listeJeuxTest extends listeJeux {
 		listeJeuII.setValeurfinale(-10);
 		listeJeuVII.setValeurfinale(50);
 		listeJeuIV.setValeurfinale(-5);
-		
+
 		assertEquals(100, listeJeuI.getValeurfinale());
 		assertEquals(-10, listeJeuII.getValeurfinale());
 		assertEquals(50, listeJeuVII.getValeurfinale());
@@ -135,43 +135,41 @@ public class listeJeuxTest extends listeJeux {
 		int Sop = 20;
 		int Alto = 20;
 		int Tenor = 5;
-		
+
 		jeu.add(Sop);
 		jeu.add(Alto);
 		jeu.add(Tenor);
 		listeJeuI.setJeu(jeu);
-		assertEquals(5 , listeJeuI.regleBeauteUne());
-		
-		
+		assertEquals(5, listeJeuI.regleBeauteUne());
+
 		Alto = 20;
-		Tenor =19; 
+		Tenor = 19;
 		jeu.clear();
 		jeu.add(Sop);
 		jeu.add(Alto);
 		jeu.add(Tenor);
 		listeJeuII.setJeu(jeu);
-		assertEquals(19,listeJeuII.regleBeauteUne());
+		assertEquals(19, listeJeuII.regleBeauteUne());
 	}
 
 	@Test
 	public void testregleBeauteDeux() {
-		int Sop = 20; 
+		int Sop = 20;
 		int Alto = 19;
 		int Tenor = 17;
-		
+
 		jeu.add(Sop);
 		jeu.add(Alto);
 		jeu.add(Tenor);
 		listeJeuI.setJeu(jeu);
 		assertEquals(20, listeJeuI.regleBeauteDeux(listeJeuI));
-		
-		
+
 		Tenor = 19;
 		jeu2.add(Sop);
 		jeu2.add(Alto);
 		jeu2.add(Tenor);
 		listeJeuII.setJeu(jeu2);
-		assertEquals(18,listeJeuI.regleBeauteDeux(listeJeuII));
+		assertEquals(18, listeJeuI.regleBeauteDeux(listeJeuII));
 	}
 
 	@Test
@@ -180,14 +178,14 @@ public class listeJeuxTest extends listeJeux {
 		int Alto = 19;
 		int Tenor = 17;
 		int Basse = 13;
-		
+
 		jeu.add(Sop);
 		jeu.add(Alto);
 		jeu.add(Tenor);
 		jeu.add(Basse);
 		listeJeuI.setJeu(jeu);
 		assertEquals(0, listeJeuI.regleBeauteTrois(listeJeuI));
-		
+
 		Basse = 15;
 		jeu2.add(Sop);
 		jeu2.add(Alto);
@@ -203,23 +201,23 @@ public class listeJeuxTest extends listeJeux {
 		int Alto = 19;
 		int Tenor = 17;
 		int Basse = 13;
-		
+
 		jeu.add(Sop);
 		jeu.add(Alto);
 		jeu.add(Tenor);
 		jeu.add(Basse);
 		listeJeuI.setJeu(jeu);
 		assertEquals(20, listeJeuI.regleBeauteQuatre(listeJeuI));
-		
-		Basse=15;
-		Tenor=19;
+
+		Basse = 15;
+		Tenor = 19;
 		jeu2.add(Sop);
 		jeu2.add(Alto);
 		jeu2.add(Tenor);
 		jeu2.add(Basse);
 		listeJeuII.setJeu(jeu2);
 		assertEquals(20, listeJeuI.regleBeauteQuatre(listeJeuII));
-	
+
 	}
 
 	@Test
@@ -228,36 +226,36 @@ public class listeJeuxTest extends listeJeux {
 		int Alto = 18;
 		int Tenor = 13;
 		int Basse = 10;
-		
+
 		jeu.add(Sop);
 		jeu.add(Alto);
 		jeu.add(Tenor);
 		jeu.add(Basse);
 		listeJeuI.setJeu(jeu);
-		
+
 		assertEquals(true, listeJeuI.regleDifferenceDeuxNotes(listeJeuI));
 
 		Sop = 26;
 		Alto = 24;
 		Tenor = 20;
 		Basse = 10;
-		
+
 		jeu2.add(Sop);
 		jeu2.add(Alto);
 		jeu2.add(Tenor);
 		jeu2.add(Basse);
 		listeJeuII.setJeu(jeu2);
-		
+
 		assertEquals(false, listeJeuI.regleDifferenceDeuxNotes(listeJeuII));
 	}
 
 	@Test
 	public void testmemeAccord() {
-		assertEquals(false, listeJeuI.memeAccord(21,20,null));
-		assertEquals(true, listeJeuII.memeAccord(0,1,null));
-		assertEquals(false, listeJeuV.memeAccord(4,21,null));
-		assertEquals(true, listeJeuVII.memeAccord(11,25,null));
-		assertEquals(true, listeJeuI.memeAccord(21,21,null));
+		assertEquals(false, listeJeuI.memeAccord(21, 20, null));
+		assertEquals(true, listeJeuII.memeAccord(0, 1, null));
+		assertEquals(false, listeJeuV.memeAccord(4, 21, null));
+		assertEquals(true, listeJeuVII.memeAccord(11, 25, null));
+		assertEquals(true, listeJeuI.memeAccord(21, 21, null));
 	}
 
 	@Test
@@ -357,7 +355,7 @@ public class listeJeuxTest extends listeJeux {
 		assertEquals(7, listeJeuVI.getIndice());
 		assertEquals(8, listeJeuVII.getIndice());
 	}
-	
+
 	@Test
 	public void testsetIndice() {
 		listeJeuI.setIndice(8);
@@ -368,7 +366,7 @@ public class listeJeuxTest extends listeJeux {
 		listeJeuV.setIndice(3);
 		listeJeuVI.setIndice(2);
 		listeJeuVII.setIndice(1);
-		
+
 		assertEquals(8, listeJeuI.getIndice());
 		assertEquals(7, listeJeuII.getIndice());
 		assertEquals(6, listeJeuIII.getIndice());
@@ -378,7 +376,7 @@ public class listeJeuxTest extends listeJeux {
 		assertEquals(2, listeJeuVI.getIndice());
 		assertEquals(1, listeJeuVII.getIndice());
 	}
-	
+
 	@Test
 	public void testgetAccord() {
 		assertEquals(Accord.I, listeJeuI.getAccord());
@@ -390,7 +388,7 @@ public class listeJeuxTest extends listeJeux {
 		assertEquals(Accord.VI, listeJeuVI.getAccord());
 		assertEquals(Accord.VII, listeJeuVII.getAccord());
 	}
-	
+
 	@Test
 	public void testsetAccord() {
 		listeJeuI.setAccord(Accord.VII);
@@ -401,7 +399,7 @@ public class listeJeuxTest extends listeJeux {
 		listeJeuV.setAccord(Accord.III);
 		listeJeuVI.setAccord(Accord.II);
 		listeJeuVII.setAccord(Accord.I);
-		
+
 		assertEquals(Accord.VII, listeJeuI.getAccord());
 		assertEquals(Accord.VI, listeJeuII.getAccord());
 		assertEquals(Accord.V, listeJeuIII.getAccord());
@@ -426,7 +424,7 @@ public class listeJeuxTest extends listeJeux {
 		listeJeuII.setValeurBeaute1(-10);
 		listeJeuVII.setValeurBeaute1(50);
 		listeJeuIV.setValeurBeaute1(-5);
-		
+
 		assertEquals(100, listeJeuI.getValeurBeaute1());
 		assertEquals(-10, listeJeuII.getValeurBeaute1());
 		assertEquals(50, listeJeuVII.getValeurBeaute1());

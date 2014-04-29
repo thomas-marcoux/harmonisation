@@ -45,10 +45,10 @@ public class Regles {
 	 * aux listes une valeur de beauté dependant d'elle même et des liste d'où
 	 * elles peuvent venir
 	 * 
-	 * @param listeGenraleJeux
+	 * @param listeGeneraleJeux
 	 *            La liste de tous les jeux possible à chaque instant pour un
 	 *            chant soprano donné
-	 * 
+	 * @return Liste des regles initialisee
 	 * */
 
 	public static ArrayList<LinkedList<listeJeux>> initialisationListesJeuxRegleUne(
@@ -89,12 +89,10 @@ public class Regles {
 	 * correspondre aux listes une valeur de beauté dependant d'elle même et des
 	 * liste d'où elles peuvent venir
 	 * 
-	 * @param listeGenraleJeux
+	 * @param listeGeneraleJeux
 	 *            La liste de tous les jeux possible à chaque instant pour un
 	 *            chant soprano donné
-	 * 
-	 * 
-	 * 
+	 * @return Liste des regles initialisee
 	 * */
 	public static ArrayList<LinkedList<listeJeux>> initialisationListesJeuxRegleDeux(
 			ArrayList<LinkedList<listeJeux>> listeGeneraleJeux) {
@@ -128,12 +126,10 @@ public class Regles {
 	 * listes une valeur de beauté dependant d'elle même et des liste d'où elles
 	 * peuvent venir
 	 * 
-	 * @param listeGenraleJeux
+	 * @param listeGeneraleJeux
 	 *            La liste de tous les jeux possible à chaque instant pour un
 	 *            chant soprano donné
-	 * 
-	 * 
-	 * 
+	 * @return Liste des regles initialisee
 	 * */
 	public static ArrayList<LinkedList<listeJeux>> initialisationListesJeuxRegleQuatre(
 			ArrayList<LinkedList<listeJeux>> listeGeneraleJeux) {
@@ -177,19 +173,18 @@ public class Regles {
 	 * partant de la fin et en additionnant tous les suivants possible de chaque
 	 * jeux
 	 * 
-	 * @param listeGenraleJeux
+	 * @param listeGeneraleJeux
 	 *            La liste de tous les jeux possible à chaque instant pour un
 	 *            chant soprano donné
-	 * 
-	 * 
-	 * 
+	 * @return Nombre d'harmonisations
 	 * */
 
 	public static long nombreHarmonisation(
 			ArrayList<LinkedList<listeJeux>> listeGeneraleJeux) {
 		long nbHarmonie = 0;
 
-		Iterator<listeJeux> itInit = listeGeneraleJeux.get(listeGeneraleJeux.size()-1).iterator();
+		Iterator<listeJeux> itInit = listeGeneraleJeux.get(
+				listeGeneraleJeux.size() - 1).iterator();
 		while (itInit.hasNext()) {
 			listeJeux actuelInit = itInit.next();
 			actuelInit.setValeurfinale(1);
@@ -219,17 +214,17 @@ public class Regles {
 			nbHarmonie += actuelFin.getValeurfinale();
 		}
 
-		if ((nbHarmonie > 2000000000) || (nbHarmonie < 0) ){
+		if ((nbHarmonie > 2000000000) || (nbHarmonie < 0)) {
 			nbHarmonie = -1;
 		}
 		return nbHarmonie;
 	}
-	
+
 	/**
 	 * 
 	 * @param a
 	 * @param b
-	 * @return
+	 * @return Difference entre a et b
 	 */
 	public static boolean difference(int a, int b) {
 		int c;
@@ -245,7 +240,7 @@ public class Regles {
 	 * 
 	 * @param a
 	 * @param b
-	 * @return
+	 * @return Difference de regle entre a et b
 	 */
 	public static int differenceRegle(int a, int b) {
 		int c;

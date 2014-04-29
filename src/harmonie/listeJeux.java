@@ -76,7 +76,7 @@ public class listeJeux {
 
 	/**
 	 * 
-	 * @return
+	 * @return valeur finale
 	 */
 	public int getValeurfinale() {
 		return valeurfinale;
@@ -156,7 +156,7 @@ public class listeJeux {
 
 	/**
 	 * 
-	 * @return
+	 * @return regle de beaute une
 	 */
 	public int regleBeauteUne() {
 		int alto, tenor;
@@ -170,7 +170,7 @@ public class listeJeux {
 	/**
 	 * 
 	 * @param precedente
-	 * @return
+	 * @return regle de beaute deux
 	 */
 	public int regleBeauteDeux(listeJeux precedente) {
 		int altoSuiv, tenorSuiv, altoPrec, tenorPrec;
@@ -189,7 +189,7 @@ public class listeJeux {
 	/**
 	 * 
 	 * @param precedente
-	 * @return
+	 * @return regle de beaute trois
 	 */
 	public int regleBeauteTrois(listeJeux precedente) {
 		int basseSuiv, bassePrec;
@@ -204,7 +204,7 @@ public class listeJeux {
 	/**
 	 * 
 	 * @param precedente
-	 * @return
+	 * @return regle de beaute quatre
 	 */
 	public int regleBeauteQuatre(listeJeux precedente) {
 		return regleBeauteDeux(precedente) + regleBeauteTrois(precedente);
@@ -213,7 +213,7 @@ public class listeJeux {
 	/**
 	 * 
 	 * @param precedente
-	 * @return
+	 * @return est-ce qu'il y a une difference de regles entre deux notes
 	 */
 	public boolean regleDifferenceDeuxNotes(listeJeux precedente) {
 		Iterator<Integer> it1 = precedente.getJeu().iterator();
@@ -237,7 +237,7 @@ public class listeJeux {
 	 * @param prec
 	 * @param suiv
 	 * @param precedente
-	 * @return
+	 * @return est-ce que les deux notes sont du meme accord
 	 */
 	public boolean memeAccord(int prec, int suiv, listeJeux precedente) {
 		Note notePrec = Note.trouverNote(prec);
@@ -259,7 +259,7 @@ public class listeJeux {
 	/**
 	 * Retourne la LinkdeList<Integer> correspondant au Jeu de this
 	 * 
-	 * @return LinkedList<Integer> correspondant au Jeu de this
+	 * @return Liste correspondant au Jeu de this
 	 */
 	public LinkedList<Integer> getJeu() {
 		return jeu;
@@ -267,9 +267,7 @@ public class listeJeux {
 
 	/**
 	 * Permet de modifier "Jeu" de this
-	 * 
-	 * @param jeu
-	 *            LinkedList<Integer> que prendre this
+	 * @param jeu que prend this
 	 */
 	public void setJeu(LinkedList<Integer> jeu) {
 		this.jeu = jeu;
@@ -278,8 +276,7 @@ public class listeJeux {
 	/**
 	 * Retourne la HashMap<listeJeux, Integer> correspondant aux listeJeux
 	 * suivant de this
-	 * 
-	 * @return HashMap<listeJeux, Integer> des listeJeux suivant de this
+	 * @return hashmap des listeJeux suivant de this
 	 */
 	public HashMap<listeJeux, Integer> getSuivants() {
 		return suivants;
@@ -288,9 +285,7 @@ public class listeJeux {
 	/**
 	 * Permet de modifier les listeJeux suivant de this
 	 * 
-	 * @param suivants
-	 *            HashMap<listeJeux,Integer> des listeJeux suivant que prendra
-	 *            this
+	 * @param suivants des listeJeux suivant que prendra this
 	 */
 	public void setSuivants(HashMap<listeJeux, Integer> suivants) {
 		this.suivants = suivants;
@@ -299,7 +294,7 @@ public class listeJeux {
 	/**
 	 * Retourne la HashMap des listeJeux peres de this
 	 * 
-	 * @return HashMap<listeJeux, Integer> des listeJeux peres de this
+	 * @return des listeJeux peres de this
 	 */
 	public HashMap<listeJeux, Integer> getPeres() {
 		return peres;
@@ -308,9 +303,7 @@ public class listeJeux {
 	/**
 	 * Permet de modifier la HashMap des listeJeux peres de this
 	 * 
-	 * @param peres
-	 *            HashMap<listeJeux, Integer> des listeJeux peres que prendra
-	 *            this
+	 * @param peres des listeJeux peres que prendra this
 	 * 
 	 */
 	public void setPeres(HashMap<listeJeux, Integer> peres) {
@@ -320,8 +313,7 @@ public class listeJeux {
 	/**
 	 * Retourne l'indice de la listeJeux this
 	 * 
-	 * @return
-	 * 		Integer indice de this
+	 * @return indice de this
 	 */
 	public int getIndice() {
 		return indice;
@@ -330,9 +322,8 @@ public class listeJeux {
 	/**
 	 * Permet de modifier l'indice de la listeJeux this
 	 * 
-	 * @param indice
-	 * 	Integer qui sera l'indice de this
-	 */	
+	 * @param indice Integer qui sera l'indice de this
+	 */
 	public void setIndice(int indice) {
 		this.indice = indice;
 	}
@@ -340,8 +331,7 @@ public class listeJeux {
 	/**
 	 * Retourne l'"Accord" de this
 	 * 
-	 * @return
-	 * 		Accord qui est l'accord de la listeJeux this
+	 * @return Accord qui est l'accord de la listeJeux this
 	 */
 	public Accord getAccord() {
 		return accord;
@@ -351,7 +341,7 @@ public class listeJeux {
 	 * Permet de modifier l'accord de la listeJeux this
 	 * 
 	 * @param accord
-	 * 		Accord qui sera le nouvel accord de la listeJeux de this
+	 *            Accord qui sera le nouvel accord de la listeJeux de this
 	 */
 	public void setAccord(Accord accord) {
 		this.accord = accord;
@@ -360,8 +350,7 @@ public class listeJeux {
 	/**
 	 * Retourne la valeur de Beauté n°1 de la listeJeux this
 	 * 
-	 * @return
-	 * 		Integer représentant la valeur de Beauté 1
+	 * @return Integer représentant la valeur de Beauté 1
 	 */
 	public int getValeurBeaute1() {
 		return valeurBeaute1;
@@ -371,7 +360,7 @@ public class listeJeux {
 	 * Permet de modifeir la valeur de Beauté n°1 de la listeJeux this
 	 * 
 	 * @param valeurBeaute1
-	 * 			Integer que prendra la valeur de Beauté 1 de this
+	 *            Integer que prendra la valeur de Beauté 1 de this
 	 */
 	public void setValeurBeaute1(int valeurBeaute1) {
 		this.valeurBeaute1 = valeurBeaute1;
