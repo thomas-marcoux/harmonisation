@@ -68,11 +68,21 @@ public class Chant {
     public Chant(File file, int k)
 	throws IOException, EmptyFileException, ChantFormatException {
 	this.titre = new String();
+	int[]	soprano = initSoprano(chantFileToStringTab(file));
 	
 	tracks = Initialisations.convertionListTab
 	    (Initialisations.initialisationSuivant
 	     (Initialisations.initialisationDuGraphe
-	      (initSoprano(chantFileToStringTab(file))), k));
+	      (Initialisations.convertionTab(soprano)), k), soprano, k);
+
+	//*
+	System.out.println("################");
+	for (int[] i : tracks) {
+	    for (int j : i)
+		System.out.print(j + " ");
+	    System.out.println();
+	}
+	//*/
     }
 
     /**
@@ -135,8 +145,7 @@ public class Chant {
      * @return	Un tableau d'int
      */
     public int[]	getBasse() {
-	//return tracks[BASSE];
-	return tracks[TENOR];
+	return tracks[BASSE];
     }
 
     /**
