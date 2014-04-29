@@ -82,18 +82,43 @@ public class Initialisations {
 			listeFinalHarmonie =  ParcoursGraphe.recherche(Regles
 					.initialisationListesJeuxRegleQuatre(listeGeneraleJeux));
 			
-		int[][] tableau = new int[5][listeFinalHarmonie.size()];
+		int[][] tableau = new int[listeFinalHarmonie.size()][5];
 
-		for (int i = 0; i < 4; i++) {
-		    for (int j = 0; j < tableau[i].length; j++) {
-			    if (j == 0)
-				tableau[i][j] = soprano[i];
-			    else
-				tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(j);
+		for (int i = 0; i < tableau.length; i++) {
+			for (int j = 0; j < tableau[i].length; j++) {
+				switch (j) {
+				case 1:
+					tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(1);
+					break;
+				case 2:
+					tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(2);
+					break;
+				case 3:
+					tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(3);
+					break;
+				}
 			}
 		}
-		tableau[4][0] = (int)(Regles.nombreHarmonisation(listeGeneraleJeux));
-		return tableau;
+		 
+		for(int i = 0; i < soprano.length; i++){
+			tableau[i][0] = soprano[i];
+		}
+		
+		tableau[0][4] = (int)(Regles.nombreHarmonisation(listeGeneraleJeux));
+		
+		int [][] tab = new int [5][tableau.length];
+		
+		for(int i = 0; i< tableau.length; i++){
+			tab[0][i] = tableau[i][0];
+			tab[1][i] = tableau[i][1];
+			tab[2][i] = tableau[i][2];
+			tab[3][i] = tableau[i][3];
+			tab[4][i] = tableau[i][4];
+			
+		}
+		
+		
+		return tab;
 	}
 
 	/**

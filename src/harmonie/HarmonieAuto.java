@@ -19,7 +19,7 @@ public class HarmonieAuto {
 	public static void main(String[] args) {
 
 
-	    /*
+	    //*
 	    int[][] tabFinalHarmonie;
 	    int	k = 3;
 
@@ -38,7 +38,7 @@ public class HarmonieAuto {
 	    //*/
 
 
-	    //*
+	    /*
 	    if (args.length > 1) {
 		try {
 		    CLI.parse(args);
@@ -49,6 +49,6 @@ public class HarmonieAuto {
 	    }
 	    else
 		CLI.showHelp();
-	    //*/
+	    /*/
 	}
 }
