@@ -11,8 +11,7 @@ public class HarmonieAuto {
     //Exemple de tableau soprano avec mes constantes
    private static final int[] soprano = {21, 21, 21, 22, 23, Chant.REPEAT, 22, Chant.REPEAT, 21, 23, 22, 22, 21, Chant.REPEAT, Chant.REPEAT, Chant.PAUSE};
     
-    //Si k == 5 alors affiche le nombre d'harmonisations
-
+    //Si nbHarmone = -1 alors c'est qu'il dépasse la taille d'un int
 	/**
 	 * @param args
 	 */
