@@ -185,11 +185,11 @@ public class Regles {
 	 * 
 	 * */
 
-	public static int nombreHarmonisation(
+	public static long nombreHarmonisation(
 			ArrayList<LinkedList<listeJeux>> listeGeneraleJeux) {
-		int nbHarmonie = 0;
+		long nbHarmonie = 0;
 
-		Iterator<listeJeux> itInit = listeGeneraleJeux.get(15).iterator();
+		Iterator<listeJeux> itInit = listeGeneraleJeux.get(listeGeneraleJeux.size()-1).iterator();
 		while (itInit.hasNext()) {
 			listeJeux actuelInit = itInit.next();
 			actuelInit.setValeurfinale(1);
@@ -219,6 +219,9 @@ public class Regles {
 			nbHarmonie += actuelFin.getValeurfinale();
 		}
 
+		if ((nbHarmonie > 2000000000) || (nbHarmonie < 0) ){
+			nbHarmonie = -1;
+		}
 		return nbHarmonie;
 	}
 	

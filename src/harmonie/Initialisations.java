@@ -32,6 +32,29 @@ public class Initialisations {
 	}
 
 	/**
+	 * Convertie le tableau int[] Chant en int[]tabSoprano qui sera utiliser pour les harmonisations
+	 * 
+	 * @param int [] tabChant contenant les notes de chant
+	 * @return int[] tabSoprano contenant les notes formaté pour les methodes d'harmoinsations
+	 */
+	public static int [] convertionTab(int [] tabChant){
+		int [] tabSoprano = new int [tabChant.length];
+		
+		for(int i=0; i<tabChant.length; i++){
+			if (tabChant[i] == Chant.REPEAT) {
+				tabSoprano[i] = tabSoprano[i-1];
+			} else if (tabChant[i] == Chant.PAUSE) {
+				tabSoprano [i] = tabSoprano[i-1];
+			} else {
+				tabSoprano[i] = tabChant[i];
+			}
+		}
+		
+		return tabSoprano;
+	}
+	
+	
+	/**
 	 * Convertie une "LinkedList<listeJeux>" en un "int [][] tableau" comportant
 	 * les notes sous format "Integer" de la meilleur harmonisation
 	 * 
@@ -40,14 +63,31 @@ public class Initialisations {
 	 * @return int [][] Retourne le tableau de la meilleur harmonisation
 	 */
 	public static int[][] convertionListTab(
-			LinkedList<listeJeux> listeFinalHarmonie) {
-		int[][] tableau = new int[listeFinalHarmonie.size()][4];
+			ArrayList<LinkedList<listeJeux>> listeGeneraleJeux,
+			int [] soprano,
+			int k) {
+		
+		LinkedList<listeJeux> listeFinalHarmonie = new LinkedList<listeJeux>();
+		
+		
+		
+		if (k == 1)
+			 listeFinalHarmonie = ParcoursGraphe.recherche(Regles
+					.initialisationListesJeuxRegleUne(listeGeneraleJeux));
+		if (k == 2 || k == 3)
+			listeFinalHarmonie =  ParcoursGraphe.recherche(Regles
+					.initialisationListesJeuxRegleDeux(listeGeneraleJeux));
+		if (k == 4)
+			listeFinalHarmonie =  ParcoursGraphe.recherche(Regles
+					.initialisationListesJeuxRegleQuatre(listeGeneraleJeux));
+			
+		int[][] tableau = new int[listeFinalHarmonie.size()][5];
 
 		for (int i = 0; i < tableau.length; i++) {
 			for (int j = 0; j < tableau[i].length; j++) {
 				switch (j) {
 				case 0:
-					tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(0);
+					tableau[i][j] = soprano[i];
 					break;
 				case 1:
 					tableau[i][j] = listeFinalHarmonie.get(i).getJeu().get(1);
@@ -61,7 +101,8 @@ public class Initialisations {
 				}
 			}
 		}
-
+		
+		tableau[0][4] = (int)(Regles.nombreHarmonisation(listeGeneraleJeux));
 		return tableau;
 	}
 
@@ -189,29 +230,18 @@ public class Initialisations {
 	 *            int correspondant à quelle fonction de beauté on a choisit
 	 * 
 	 * */
-	public static LinkedList<listeJeux> initialisationSuivant(
+	public static ArrayList<LinkedList<listeJeux>> initialisationSuivant(
 			ArrayList<LinkedList<listeJeux>> listeGeneraleJeux, int k) {
 
-		LinkedList<listeJeux> listeVide = new LinkedList<listeJeux>();
 		for (int i = (listeGeneraleJeux.size() - 1); i > 0; i--) {
 			ajouteSuivant(listeGeneraleJeux.get(i),
 					listeGeneraleJeux.get(i - 1), k);
 		}
-
-		if (k == 1)
-			return ParcoursGraphe.recherche(Regles
-					.initialisationListesJeuxRegleUne(listeGeneraleJeux));
-		if (k == 2 || k == 3)
-			return ParcoursGraphe.recherche(Regles
-					.initialisationListesJeuxRegleDeux(listeGeneraleJeux));
-		if (k == 4)
-			return ParcoursGraphe.recherche(Regles
-					.initialisationListesJeuxRegleQuatre(listeGeneraleJeux));
-		if (k == 5)
-			System.out.println(Regles.nombreHarmonisation(listeGeneraleJeux));
-
-		return listeVide;
+		
+		return listeGeneraleJeux;
 	}
+
+
 
 	/**
 	 * Prend un deux listes de listeJeux correspondant à tous les jeux possible

@@ -2,7 +2,6 @@ package harmonie;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -15,14 +14,14 @@ public class listeJeuxTest extends listeJeux {
 	private LinkedList<Integer> jeu3 = new LinkedList<Integer>();
 	private LinkedList<Integer> jeu4 = new LinkedList<Integer>();
 
-	private listeJeux listeJeuI = new listeJeux(jeu, 1, I);
-	private listeJeux listeJeuII = new listeJeux(jeu, 2, II);
-	private listeJeux listeJeuIII = new listeJeux(jeu2, 3, III);
-	private listeJeux listeJeuIV = new listeJeux(jeu, 4, IV);
-	private listeJeux listeJeuIVb = new listeJeux(jeu4, 5, IVb);
-	private listeJeux listeJeuV = new listeJeux(jeu, 6, V);
-	private listeJeux listeJeuVI = new listeJeux(jeu3, 7, VI);
-	private listeJeux listeJeuVII = new listeJeux(jeu2, 8, VII);
+	private listeJeux listeJeuI = new listeJeux(jeu, 1, Accord.I);
+	private listeJeux listeJeuII = new listeJeux(jeu, 2, Accord.II);
+	private listeJeux listeJeuIII = new listeJeux(jeu2, 3, Accord.III);
+	private listeJeux listeJeuIV = new listeJeux(jeu, 4, Accord.IV);
+	private listeJeux listeJeuIVb = new listeJeux(jeu4, 5, Accord.IVb);
+	private listeJeux listeJeuV = new listeJeux(jeu, 6, Accord.V);
+	private listeJeux listeJeuVI = new listeJeux(jeu3, 7, Accord.VI);
+	private listeJeux listeJeuVII = new listeJeux(jeu2, 8, Accord.VII);
 
 	@Test
 	public void testlisteJeuxSimple() {
@@ -90,45 +89,45 @@ public class listeJeuxTest extends listeJeux {
 
 	@Test
 	public void testregleAccord() {
-		assertEquals(false, listeJeuIVb.regleAccord(listeJeuI, null));
-		assertEquals(true, listeJeuIV.regleAccord(listeJeuI, null));
-		assertEquals(true, listeJeuII.regleAccord(listeJeuI, null));
-		assertEquals(true, listeJeuVII.regleAccord(listeJeuI, null));
+		assertEquals(false, listeJeuIVb.regleAccord(listeJeuI));
+		assertEquals(true, listeJeuIV.regleAccord(listeJeuI));
+		assertEquals(true, listeJeuII.regleAccord(listeJeuI));
+		assertEquals(true, listeJeuVII.regleAccord(listeJeuI));
 
-		assertEquals(true, listeJeuII.regleAccord(listeJeuII, null));
-		assertEquals(true, listeJeuV.regleAccord(listeJeuII, null));
-		assertEquals(true, listeJeuVII.regleAccord(listeJeuII, null));
-		assertEquals(false, listeJeuIV.regleAccord(listeJeuII, null));
+		assertEquals(true, listeJeuII.regleAccord(listeJeuII));
+		assertEquals(true, listeJeuV.regleAccord(listeJeuII));
+		assertEquals(true, listeJeuVII.regleAccord(listeJeuII));
+		assertEquals(false, listeJeuIV.regleAccord(listeJeuII));
 
-		assertEquals(false, listeJeuI.regleAccord(listeJeuIII, null));
-		assertEquals(false, listeJeuIVb.regleAccord(listeJeuIII, null));
-		assertEquals(true, listeJeuIV.regleAccord(listeJeuIII, null));
-		assertEquals(true, listeJeuV.regleAccord(listeJeuIII, null));
+		assertEquals(false, listeJeuI.regleAccord(listeJeuIII));
+		assertEquals(false, listeJeuIVb.regleAccord(listeJeuIII));
+		assertEquals(true, listeJeuIV.regleAccord(listeJeuIII));
+		assertEquals(true, listeJeuV.regleAccord(listeJeuIII));
 
-		assertEquals(false, listeJeuIVb.regleAccord(listeJeuIV, null));
-		assertEquals(true, listeJeuIV.regleAccord(listeJeuIV, null));
-		assertEquals(true, listeJeuV.regleAccord(listeJeuIV, null));
-		assertEquals(true, listeJeuIII.regleAccord(listeJeuIV, null));
+		assertEquals(false, listeJeuIVb.regleAccord(listeJeuIV));
+		assertEquals(true, listeJeuIV.regleAccord(listeJeuIV));
+		assertEquals(true, listeJeuV.regleAccord(listeJeuIV));
+		assertEquals(true, listeJeuIII.regleAccord(listeJeuIV));
 
-		assertEquals(true, listeJeuI.regleAccord(listeJeuIVb, null));
-		assertEquals(true, listeJeuIVb.regleAccord(listeJeuIVb, null));
-		assertEquals(false, listeJeuIV.regleAccord(listeJeuIVb, null));
-		assertEquals(false, listeJeuVI.regleAccord(listeJeuIVb, null));
+		assertEquals(true, listeJeuI.regleAccord(listeJeuIVb));
+		assertEquals(true, listeJeuIVb.regleAccord(listeJeuIVb));
+		assertEquals(false, listeJeuIV.regleAccord(listeJeuIVb));
+		assertEquals(false, listeJeuVI.regleAccord(listeJeuIVb));
 
-		assertEquals(true, listeJeuI.regleAccord(listeJeuV, null));
-		assertEquals(true, listeJeuIII.regleAccord(listeJeuV, null));
-		assertEquals(false, listeJeuII.regleAccord(listeJeuV, null));
-		assertEquals(false, listeJeuVII.regleAccord(listeJeuV, null));
+		assertEquals(true, listeJeuI.regleAccord(listeJeuV));
+		assertEquals(true, listeJeuIII.regleAccord(listeJeuV));
+		assertEquals(false, listeJeuII.regleAccord(listeJeuV));
+		assertEquals(false, listeJeuVII.regleAccord(listeJeuV));
 
-		assertEquals(true, listeJeuII.regleAccord(listeJeuVI, null));
-		assertEquals(true, listeJeuVI.regleAccord(listeJeuVI, null));
-		assertEquals(false, listeJeuIVb.regleAccord(listeJeuVI, null));
-		assertEquals(false, listeJeuI.regleAccord(listeJeuVI, null));
+		assertEquals(true, listeJeuII.regleAccord(listeJeuVI));
+		assertEquals(true, listeJeuVI.regleAccord(listeJeuVI));
+		assertEquals(false, listeJeuIVb.regleAccord(listeJeuVI));
+		assertEquals(false, listeJeuI.regleAccord(listeJeuVI));
 
-		assertEquals(true, listeJeuI.regleAccord(listeJeuVII, null));
-		assertEquals(true, listeJeuIII.regleAccord(listeJeuVII, null));
-		assertEquals(false, listeJeuIV.regleAccord(listeJeuVII, null));
-		assertEquals(false, listeJeuIVb.regleAccord(listeJeuVII, null));
+		assertEquals(true, listeJeuI.regleAccord(listeJeuVII));
+		assertEquals(true, listeJeuIII.regleAccord(listeJeuVII));
+		assertEquals(false, listeJeuIV.regleAccord(listeJeuVII));
+		assertEquals(false, listeJeuIVb.regleAccord(listeJeuVII));
 	}
 
 	@Test
@@ -236,7 +235,7 @@ public class listeJeuxTest extends listeJeux {
 		jeu.add(Basse);
 		listeJeuI.setJeu(jeu);
 		
-		assertEquals(true, listeJeuI.regleDifferenceDeuxNotes(listeJeuI,listeGeneralNotes));
+		assertEquals(true, listeJeuI.regleDifferenceDeuxNotes(listeJeuI));
 
 		Sop = 26;
 		Alto = 24;
@@ -249,16 +248,16 @@ public class listeJeuxTest extends listeJeux {
 		jeu2.add(Basse);
 		listeJeuII.setJeu(jeu2);
 		
-		assertEquals(false, listeJeuI.regleDifferenceDeuxNotes(listeJeuII,listeGeneralNotes));
+		assertEquals(false, listeJeuI.regleDifferenceDeuxNotes(listeJeuII));
 	}
 
 	@Test
 	public void testmemeAccord() {
-		assertEquals(false, listeJeuI.memeAccord(21,20,null,listeGeneralNotes));
-		assertEquals(true, listeJeuII.memeAccord(0,1,null,listeGeneralNotes));
-		assertEquals(false, listeJeuV.memeAccord(4,21,null,listeGeneralNotes));
-		assertEquals(true, listeJeuVII.memeAccord(11,25,null,listeGeneralNotes));
-		assertEquals(true, listeJeuI.memeAccord(21,21,null,listeGeneralNotes));
+		assertEquals(false, listeJeuI.memeAccord(21,20,null));
+		assertEquals(true, listeJeuII.memeAccord(0,1,null));
+		assertEquals(false, listeJeuV.memeAccord(4,21,null));
+		assertEquals(true, listeJeuVII.memeAccord(11,25,null));
+		assertEquals(true, listeJeuI.memeAccord(21,21,null));
 	}
 
 	@Test
@@ -382,35 +381,35 @@ public class listeJeuxTest extends listeJeux {
 	
 	@Test
 	public void testgetAccord() {
-		assertEquals(I, listeJeuI.getAccord());
-		assertEquals(II, listeJeuII.getAccord());
-		assertEquals(III, listeJeuIII.getAccord());
-		assertEquals(IV, listeJeuIV.getAccord());
-		assertEquals(IVb, listeJeuIVb.getAccord());
-		assertEquals(V, listeJeuV.getAccord());
-		assertEquals(VI, listeJeuVI.getAccord());
-		assertEquals(VII, listeJeuVII.getAccord());
+		assertEquals(Accord.I, listeJeuI.getAccord());
+		assertEquals(Accord.II, listeJeuII.getAccord());
+		assertEquals(Accord.III, listeJeuIII.getAccord());
+		assertEquals(Accord.IV, listeJeuIV.getAccord());
+		assertEquals(Accord.IVb, listeJeuIVb.getAccord());
+		assertEquals(Accord.V, listeJeuV.getAccord());
+		assertEquals(Accord.VI, listeJeuVI.getAccord());
+		assertEquals(Accord.VII, listeJeuVII.getAccord());
 	}
 	
 	@Test
 	public void testsetAccord() {
-		listeJeuI.setAccord(VII);
-		listeJeuII.setAccord(VI);
-		listeJeuIII.setAccord(V);
-		listeJeuIV.setAccord(IVb);
-		listeJeuIVb.setAccord(IV);
-		listeJeuV.setAccord(III);
-		listeJeuVI.setAccord(II);
-		listeJeuVII.setAccord(I);
+		listeJeuI.setAccord(Accord.VII);
+		listeJeuII.setAccord(Accord.VI);
+		listeJeuIII.setAccord(Accord.V);
+		listeJeuIV.setAccord(Accord.IVb);
+		listeJeuIVb.setAccord(Accord.IV);
+		listeJeuV.setAccord(Accord.III);
+		listeJeuVI.setAccord(Accord.II);
+		listeJeuVII.setAccord(Accord.I);
 		
-		assertEquals(VII, listeJeuI.getAccord());
-		assertEquals(VI, listeJeuII.getAccord());
-		assertEquals(V, listeJeuIII.getAccord());
-		assertEquals(IVb, listeJeuIV.getAccord());
-		assertEquals(IV, listeJeuIVb.getAccord());
-		assertEquals(III, listeJeuV.getAccord());
-		assertEquals(II, listeJeuVI.getAccord());
-		assertEquals(I, listeJeuVII.getAccord());
+		assertEquals(Accord.VII, listeJeuI.getAccord());
+		assertEquals(Accord.VI, listeJeuII.getAccord());
+		assertEquals(Accord.V, listeJeuIII.getAccord());
+		assertEquals(Accord.IVb, listeJeuIV.getAccord());
+		assertEquals(Accord.IV, listeJeuIVb.getAccord());
+		assertEquals(Accord.III, listeJeuV.getAccord());
+		assertEquals(Accord.II, listeJeuVI.getAccord());
+		assertEquals(Accord.I, listeJeuVII.getAccord());
 	}
 
 	@Test

@@ -31,16 +31,26 @@ public class Accord {
 	private Note quinte;
 
 	/**
+	 * Constructeur vide de "Accord", il initialiste tout à "" ou null
+	 */
+	public Accord() {
+		this.nom = "";
+		this.tonique = null;
+		this.tierce = null;
+		this.quinte = null;
+	}
+
+	/**
 	 * Constructeur de "Accord", il prend un String et Trois notes
 	 * 
 	 * @param nom
-	 * 			String qui identifie "Accord"
+	 *            String qui identifie "Accord"
 	 * @param tonique
-	 * 			Le "Note" tonique qui sera ajouté à "Accord"
+	 *            Le "Note" tonique qui sera ajouté à "Accord"
 	 * @param tierce
-	 * 			Le "Note" tierce qui sera ajouté à "Accord"
+	 *            Le "Note" tierce qui sera ajouté à "Accord"
 	 * @param quinte
-	 * 			Le "Note" quinte qui sera ajouté à "Accord"
+	 *            Le "Note" quinte qui sera ajouté à "Accord"
 	 */
 	public Accord(String nom, Note tonique, Note tierce, Note quinte) {
 		this.nom = nom;
@@ -58,16 +68,16 @@ public class Accord {
 	 * @param indice
 	 *            L'indice de note dans le chant soprano
 	 * 
-	 * @return LinkedList<Accord>
-	 * 			  La liste des trois accords où se trouve Note
+	 * @return LinkedList<Accord> La liste des trois accords où se trouve Note
 	 * */
-	public static LinkedList<Accord> trouverAccord(Note note, int indice, int[] tabSoprano) {
+	public static LinkedList<Accord> trouverAccord(Note note, int indice,
+			int[] tabSoprano) {
 		LinkedList<Accord> listeAccord = new LinkedList<Accord>();
 
 		Iterator<Accord> it = listeGeneralAccords.iterator();
 		while (it.hasNext()) {
 			Accord actuel = it.next();
-			
+
 			if ((note.equals(actuel.getTonique()))
 					|| (note.equals(actuel.getTierce()))
 					|| (note.equals(actuel.getQuinte()))) {
@@ -86,8 +96,7 @@ public class Accord {
 	/**
 	 * Retourne le nom de "Accord"
 	 * 
-	 * @return
-	 * 		Le String nom de "Accord"
+	 * @return Le String nom de "Accord"
 	 */
 	public String getNom() {
 		return nom;
@@ -97,7 +106,7 @@ public class Accord {
 	 * Permet de modifier le nom de "Accord"
 	 * 
 	 * @param nom
-	 * 		Le String que prendra "Accord"
+	 *            Le String que prendra "Accord"
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -106,8 +115,7 @@ public class Accord {
 	/**
 	 * Retourne la tonique de "Accord"
 	 * 
-	 * @return
-	 * 		Le "Note" correspondant à la tonique de "Accord"
+	 * @return Le "Note" correspondant à la tonique de "Accord"
 	 */
 	public Note getTonique() {
 		return tonique;
@@ -117,7 +125,7 @@ public class Accord {
 	 * Permet de modifier la tonique de "Accord"
 	 * 
 	 * @param tonique
-	 * 		Note que prendra la tonique de "Accord"
+	 *            Note que prendra la tonique de "Accord"
 	 */
 	public void setTonique(Note tonique) {
 		this.tonique = tonique;
@@ -126,8 +134,7 @@ public class Accord {
 	/**
 	 * Retourne la tierce de "Accord"
 	 * 
-	 * @return
-	 * 		Le "Note" correspondant à la tierce de "Accord"
+	 * @return Le "Note" correspondant à la tierce de "Accord"
 	 */
 	public Note getTierce() {
 		return tierce;
@@ -137,7 +144,7 @@ public class Accord {
 	 * Permet de modifier la tierce de "Accord"
 	 * 
 	 * @param tierce
-	 * 		Note que prendra la tiere de "Accord"
+	 *            Note que prendra la tiere de "Accord"
 	 */
 	public void setTierce(Note tierce) {
 		this.tierce = tierce;
@@ -146,8 +153,7 @@ public class Accord {
 	/**
 	 * Retourne la quinte de "Accord"
 	 * 
-	 * @return
-	 * 		Le "Note" correspondant à la quinte de "Accord"
+	 * @return Le "Note" correspondant à la quinte de "Accord"
 	 */
 	public Note getQuinte() {
 		return quinte;
@@ -157,10 +163,10 @@ public class Accord {
 	 * Permet de modifier la quinte de "Accord"
 	 * 
 	 * @param quinte
-	 * 		Note que prendra la quinte de "Accord"
+	 *            Note que prendra la quinte de "Accord"
 	 */
 	public void setQuinte(Note quinte) {
 		this.quinte = quinte;
 	}
-	
+
 }

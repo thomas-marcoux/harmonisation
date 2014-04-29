@@ -8,8 +8,8 @@ import org.junit.Test;
 
 public class NoteTest extends Note{
 
-	public NoteTest(String nom, int note1, int note2, int note3, int note4) {
-		super(nom, note1, note2, note3, note4);
+	public NoteTest() {
+		super();
 	}
 
 	private Note note1 = new Note("1", 1, 2, 3, 4);

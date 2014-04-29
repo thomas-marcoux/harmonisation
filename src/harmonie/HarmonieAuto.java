@@ -1,6 +1,5 @@
 package harmonie;
 
-import Exceptions.*;
 
 public class HarmonieAuto {
     
@@ -10,7 +9,7 @@ public class HarmonieAuto {
     public static final String	AUTEURS[] = {AUTEUR1, AUTEUR2, AUTEUR3};
     
     //Exemple de tableau soprano avec mes constantes
-    //int[] soprano = {21, 21, 21, 22, 23, Chant.REPEAT, 22, Chant.REPEAT, 21, 23, 22, 22, 21, Chant.REPEAT, Chant.REPEAT, Chant.PAUSE};
+   private static final int[] soprano = {21, 21, 21, 22, 23, Chant.REPEAT, 22, Chant.REPEAT, 21, 23, 22, 22, 21, Chant.REPEAT, Chant.REPEAT, Chant.PAUSE};
     
     //Si k == 5 alors affiche le nombre d'harmonisations
 
@@ -20,15 +19,15 @@ public class HarmonieAuto {
 	public static void main(String[] args) {
 
 
-	    /*
-	    int[] tabSoprano = { 21, 21, 21, 22, 23, 23, 22, 22, 21, 23, 22, 22, 21, 21, 21, 21 };
+	    //*
 	    int[][] tabFinalHarmonie;
 	    int	k = 3;
 
 	    tabFinalHarmonie = Initialisations.convertionListTab
 		(Initialisations.initialisationSuivant
-		 (Initialisations.initialisationDuGraphe(tabSoprano), k));
+		 (Initialisations.initialisationDuGraphe(Initialisations.convertionTab(soprano)), k),soprano,k);
 
+	    
 	    // Affichage de l'harmonisation
 	    for (int i = 0; i < tabFinalHarmonie.length; i++) {
 		for (int j = 0; j < tabFinalHarmonie[i].length; j++) {
@@ -36,10 +35,10 @@ public class HarmonieAuto {
 		}
 		System.out.println("");
 	    }
-	    */
+	    //*/
 
 
-	    //*
+	    /*
 	    if (args.length > 1) {
 		try {
 		    CLI.parse(args);
@@ -50,6 +49,6 @@ public class HarmonieAuto {
 	    }
 	    else
 		CLI.showHelp();
-	    //*/
+	    /*/
 	}
 }

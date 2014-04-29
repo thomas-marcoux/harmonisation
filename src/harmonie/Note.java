@@ -26,6 +26,14 @@ public class Note {
 
 	private String nom;
 	private LinkedList<Integer> listeNotes;
+	
+	/**
+	 * Constructeur Vide qui met tout à "" ou null
+	 */
+	public Note() {
+		this.nom = "";
+		this.listeNotes = new LinkedList<Integer>();
+	}
 
 	/**
 	 * Constructeur de "Note", il prend un string et trois notes

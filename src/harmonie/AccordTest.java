@@ -8,12 +8,15 @@ import org.junit.Test;
 
 public class AccordTest extends Accord{
 	
+	public AccordTest() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public static final int[] tabSoprano = { 21, 21, 21, 22, 23, 23, 22, 22,
 	21, 23, 22, 22, 21, 21, 21, 21 };
 
-	public AccordTest(String nom, Note tonique, Note tierce, Note quinte) {
-		super(nom, tonique, tierce, quinte);
-	}
+
 
 	private Note premiere = new Note("Tonique", 1, 2, 3, 4);
 	private Note deuxieme = new Note("Tierce", 4, 3, 2, 1);

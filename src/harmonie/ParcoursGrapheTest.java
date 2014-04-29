@@ -2,8 +2,6 @@ package harmonie;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import org.junit.Test;
@@ -24,11 +22,6 @@ public class ParcoursGrapheTest extends ParcoursGraphe{
 		
 		getPath(tabJeu,tabJeu[0][0],chemin,0,liste,null);
 		assertFalse(chemin.isEmpty());	
-	}
-
-	@Test
-	public void testgetPath (){
-		
 	}
 	
 	@Test
@@ -73,14 +66,4 @@ public class ParcoursGrapheTest extends ParcoursGraphe{
 		assertEquals(listeDesJeux,copieListeJeux(listeDesJeux));
 	}
 	
-	@Test
-	public void testrechercheChemin () {
-		
-	}
-	
-	@Test
-	public void testreche (){
-		
-	}
-
 }

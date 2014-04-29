@@ -159,7 +159,7 @@ public class ParcoursGraphe {
 			ArrayList<LinkedList<listeJeux>> listeGeneraleJeux) {
 		LinkedList<listeJeux> chemin = new LinkedList<listeJeux>();
 
-		Iterator<listeJeux> itFin = listeGeneraleJeux.get(15).iterator();
+		Iterator<listeJeux> itFin = listeGeneraleJeux.get(listeGeneraleJeux.size()-1).iterator();
 		listeJeux meilleur = null;
 		int meilleurInt = 0;
 

@@ -27,26 +27,6 @@ public class ReglesTest extends Regles {
 		assertEquals(false,regleInterval(16,4));
 	}
 	
-	@Test 
-	public void testinitialisationListesJeuxRegleUne (){
-		
-	}
-	
-	@Test 
-	public void testinitialisationListesJeuxRegleeux (){
-		
-	}
-	
-	@Test 
-	public void testinitialisationListesJeuxRegleQuatre (){
-		
-	}
-	
-	@Test
-	public void testnombreHarmonisation (){
-		
-	}
-
 	@Test
 	public void testdifference() {
 		assertEquals(true, difference(10, 16));
